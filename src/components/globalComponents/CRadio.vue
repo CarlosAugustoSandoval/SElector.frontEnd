@@ -8,10 +8,9 @@
         outlined
         tile
         class="rounded mb-1"
-        style="border: thin solid rgba(0, 0, 0, 0.4) !important;"
-        :style="errors.length ? 'border: 2px solid #ff5252 !important;' : ''"
+        :style="`${errors.length ? 'border: 2px solid #ff5252 !important;' : `border: thin solid rgba(${darkMode ? '255, 255, 255, 0.3' : '0, 0, 0, 0.4'}) !important;`}`"
     >
-      <v-card-text :style="errors.length ? 'padding: 2px 4px 6px 4px' : 'padding: 3px 4px 7px 4px'">
+      <v-card-text :style="errors.length ? 'padding: 2px 6px 6px 6px' : 'padding: 3px 6px 7px 6px'">
         <v-radio-group
             v-model="model"
             :column="column"
