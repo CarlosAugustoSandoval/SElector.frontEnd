@@ -1,0 +1,37 @@
+.c-upper-case input {
+  text-transform: uppercase !important;
+}
+
+.c-lower-case input {
+  text-transform: lowercase !important;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+html {
+  overflow-y:auto;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar-button:increment,.c-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width:10px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border: 2px solid #F8F9F9;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(52, 73, 94, 0.8);
+}
