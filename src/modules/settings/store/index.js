@@ -3,7 +3,7 @@ const state = {
     navigationDrawer: true,
     customizerDrawer: false,
     darkMode: false,
-    primaryColor: null,
+    primaryColor: '#1C4A75',
     optionsPrimary: [
         {
             primaryColor: '#00A1E5',

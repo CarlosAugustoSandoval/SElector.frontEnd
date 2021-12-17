@@ -92,7 +92,8 @@ export default {
     },
     colorActive: {
       handler (color) {
-        this.$store.commit('settingsModule/SET_THEME_COLOR', color)
+        console.log('colorActive', color)
+        this.$store.commit('settingsModule/SET_THEME_COLOR', typeof color === 'string' ? color : color.hex)
       },
       immediate: false
     }
@@ -100,6 +101,7 @@ export default {
   created () {
     this.colorActive = this.primaryColor
     this.dark = this.darkMode
+    console.log('created', this.colorActive)
   },
   methods: {
     logout () {

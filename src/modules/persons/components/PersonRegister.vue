@@ -164,6 +164,7 @@
                           item-value="codigo_dane"
                           :disabled="identificacionVerificada < 1"
                           @change="item.codigo_municipio = null"
+                          @inputObject="val => item.departamento = val"
                       />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -176,6 +177,7 @@
                           item-text="nombre"
                           item-value="codigo_dane"
                           :disabled="identificacionVerificada < 1 || !item.codigo_departamento"
+                          @inputObject="val => item.municipio = val"
                       />
                     </v-col>
                     <v-col cols="12" sm="6">
@@ -226,6 +228,7 @@
                           item-value="codigo_dane"
                           :disabled="identificacionVerificada < 1"
                           @change="item.codigo_municipio_votacion = null"
+                          @inputObject="val => item.departamento_votacion = val"
                       />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -238,6 +241,7 @@
                           item-text="nombre"
                           item-value="codigo_dane"
                           :disabled="identificacionVerificada < 1 || !item.codigo_departamento_votacion"
+                          @inputObject="val => item.municipio_votacion = val"
                       />
                     </v-col>
                     <v-col cols="12">

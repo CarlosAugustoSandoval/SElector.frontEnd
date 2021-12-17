@@ -22,8 +22,8 @@ export default {
     primaryColor: {
       handler (color) {
         if (color) {
-          this.$vuetify.theme.themes.light.primary = color.hex
-          this.$vuetify.theme.themes.dark.primary = color.hex
+          this.$vuetify.theme.themes.light.primary = color
+          this.$vuetify.theme.themes.dark.primary = color
         }
       },
       immediate: true

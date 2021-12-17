@@ -144,6 +144,7 @@ export default {
     model: {
       handler(val) {
         this.$emit('input', (typeof val !== 'undefined') ? val : null)
+        this.$emit('inputObject', (typeof val !== 'undefined' && val !== null) ? this.items.find(x => x[this.itemValue] === val) : null)
       },
       immediate: false
     },

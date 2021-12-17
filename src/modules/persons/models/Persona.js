@@ -25,5 +25,11 @@ export default {
     lugar_votacion: null,
     mesa_votacion: null,
     observaciones: null,
-    user_id: null
+    user_id: null,
+    sincronizado: false,
+    /// objects
+    departamento: null,
+    municipio: null,
+    departamento_votacion: null,
+    municipio_votacion: null
 }

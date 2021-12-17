@@ -40,13 +40,88 @@
               class='elevation-1'
           >
             <template v-slot:item.person='{ item }'>
-              {{item.nombre1}}
+              <v-list-item class="pa-0">
+                <v-list-item-avatar class="ma-0">
+                  <v-icon size="30">
+                    {{ item.sexo ? item.sexo === 'M' ? 'mdi-face-man' : 'mdi-face-woman' : 'mdi-account' }}
+                  </v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content class="py-1">
+                  <v-list-item-title>
+                    {{ [item.nombre1, item.nombre2, item.apellido1, item.apellido2].filter(x => x).join(' ') }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ [item.tipo_identificacion, item.identificacion].filter(x => x).join(' ') }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </template>
             <template v-slot:item.contact='{ item }'>
-              {{item.celular}}
+              <v-list-item class="pa-0">
+                <v-list-item-content class="py-1">
+                  <v-list-item-title v-if="item.celular || item.celular2">
+                    <v-icon size="16">mdi-cellphone</v-icon>
+                    <template v-if="item.celular">
+                      <c-tooltip
+                          top
+                          tooltip="Principal"
+                      >
+                        <a :href="`tel:${item.celular}`">
+                          {{ item.celular }}
+                        </a>
+                      </c-tooltip>
+                    </template>
+                    <template v-if="item.celular && item.celular2"> | </template>
+                    <template v-if="item.celular2">
+                      <c-tooltip
+                          top
+                          tooltip="Opcional"
+                      >
+                        <a :href="`tel:${item.celular2}`">
+                          {{ item.celular2 }}
+                        </a>
+                      </c-tooltip>
+                    </template>
+                  </v-list-item-title>
+                  <v-list-item-subtitle v-if="item.email">
+                    <v-icon size="16">mdi-email</v-icon>
+                    {{ item.email }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:item.residence='{ item }'>
+              <v-list-item class="pa-0">
+                <v-list-item-content class="py-1">
+                  <v-list-item-title v-if="item.direccion">
+                    {{ item.direccion }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ [item.municipio ? item.municipio.nombre : null, item.departamento ? item.departamento.nombre : null].filter(x => x).join(', ') }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </template>
             <template v-slot:item.vote='{ item }'>
-              {{item.lugar_votacion}}
+              <v-list-item class="pa-0">
+                <c-tooltip top tooltip="Mesa de votación">
+                  <v-list-item-avatar
+                      tile
+                      :color="item.mesa_votacion ? 'info' : 'warning'"
+                      class="ma-0 mr-1 white--text"
+                  >
+                    {{ item.mesa_votacion || '?' }}
+                  </v-list-item-avatar>
+                </c-tooltip>
+                <v-list-item-content class="py-1">
+                  <v-list-item-title>
+                    {{ item.lugar_votacion }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ [item.municipio_votacion ? item.municipio_votacion.nombre : null, item.departamento_votacion ? item.departamento_votacion.nombre : null].filter(x => x).join(', ') }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </template>
             <template v-slot:item.options='{ item }'>
               <div class="optionsButtons">
@@ -111,7 +186,12 @@ export default {
         value: 'contact',
       },
       {
-        text: 'votación',
+        text: 'Lugar de residencia',
+        sortable: false,
+        value: 'residence',
+      },
+      {
+        text: 'Votación',
         sortable: false,
         value: 'vote',
       },
