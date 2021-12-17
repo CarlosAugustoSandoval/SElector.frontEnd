@@ -3,10 +3,19 @@
     <view-title>
       <template v-slot:action>
         <v-btn
+            v-if="$vuetify.breakpoint.smAndUp"
             color='primary'
             @click='registerItem'
         >
           Registrar Persona
+        </v-btn>
+        <v-btn
+            v-else
+            fab
+            color='primary'
+            @click='registerItem'
+        >
+          <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
     </view-title>
