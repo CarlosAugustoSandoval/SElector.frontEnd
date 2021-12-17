@@ -1,4 +1,4 @@
-# campaniappfrontend
+# SElector
 
 ## Project setup
 ```
