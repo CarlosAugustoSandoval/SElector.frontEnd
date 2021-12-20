@@ -147,6 +147,18 @@
                       <v-icon color='white'>mdi-pencil</v-icon>
                     </v-btn>
                   </c-tooltip>
+                  <c-tooltip bottom tooltip='Eliminar'>
+                    <v-btn
+                        class='ma-1'
+                        color='error'
+                        depressed
+                        fab
+                        x-small
+                        @click='deleteItem(item)'
+                    >
+                      <v-icon color='white'>mdi-delete</v-icon>
+                    </v-btn>
+                  </c-tooltip>
 <!--                  <c-tooltip bottom tooltip='Ver Detalle'>-->
 <!--                    <v-btn-->
 <!--                        class='ma-1'-->
@@ -169,6 +181,21 @@
     <person-register
         ref='itemRegister'
     />
+    <c-confirm
+        v-if="itemSelected"
+        title="Eliminar registro de persona"
+        :subtitle="`¿Está seguro de continuar con la eliminación del registro de <strong>${itemSelected.nombre_completo}</strong>?`"
+        text-confirm-button="Si, Eliminar"
+        color-confirm-button="error"
+        action="DELETE"
+        :dispatch="'personsModule/delete'"
+        :payload="itemSelected"
+        catch-message="Error al eliminar el registro de persona."
+        success-message="Se eliminó el registro de persona correctamente."
+        :dialog.sync="showConfirmDelete"
+        @success="showConfirmDelete = false"
+        @cancel="itemSelected = null"
+    />
   </v-container>
 </template>
 
@@ -183,6 +210,8 @@ export default {
   data: () => ({
     search: null,
     loading: false,
+    itemSelected: null,
+    showConfirmDelete: false,
     headers: [
       {
         text: 'Persona',
@@ -217,6 +246,10 @@ export default {
     }
   },
   methods: {
+    deleteItem (item) {
+      this.itemSelected = item
+      this.showConfirmDelete = true
+    },
     registerItem () {
       this.$refs.itemRegister.open()
     },

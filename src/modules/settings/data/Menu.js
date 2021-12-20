@@ -29,6 +29,15 @@ const Menu =[
             permission: 'usuarios.inicio',
             visible: true
         }
+    },
+    {
+        type: 'subheader',
+        meta: {
+            title: 'Administrativo',
+            icon: 'mdi-cog',
+            module: 'Personas',
+            permission: 'usuarios.inicio'
+        }
     }
 ]
 

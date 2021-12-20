@@ -9,21 +9,30 @@
     <v-list
         dense
         nav
+        subheader
     >
-      <v-list-item
-          v-for="(menu, indexMenu) in menus"
-          :key="indexMenu"
-          link
-          :to="{name: menu.name}"
-      >
-        <v-list-item-icon>
-          <v-icon>{{ menu.meta.icon }}</v-icon>
-        </v-list-item-icon>
+      <template v-for="(menu, indexMenu) in menus">
+        <v-subheader
+            :key="`subheader${indexMenu}`"
+            v-if="menu.type === 'subheader'"
+        >
+          {{ menu.meta.title }}
+        </v-subheader>
+        <v-list-item
+            v-else
+            :key="indexMenu"
+            link
+            :to="{name: menu.name}"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ menu.meta.icon }}</v-icon>
+          </v-list-item-icon>
 
-        <v-list-item-content>
-          <v-list-item-title>{{ menu.meta.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>{{ menu.meta.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>

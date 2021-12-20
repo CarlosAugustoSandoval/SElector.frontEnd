@@ -8,7 +8,7 @@
     <v-container fluid>
       <v-row justify="center">
         <v-progress-circular
-            color="primary"
+            :color="`primary${darkMode ? ' lighten-4' : ''}`"
             indeterminate size="64"
         />
       </v-row>
@@ -56,7 +56,7 @@ export default {
     },
     opacity: {
       type: Number,
-      default: 0.5
+      default: 0.4
     }
   },
   computed: {
