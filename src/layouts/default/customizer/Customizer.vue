@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    style="z-index: 2 !important;"
+    style="z-index: 4 !important;"
     :style="`padding-top: ${$vuetify.breakpoint.mdAndUp ? '64' : '56'}px`"
     v-model="customizerDrawer"
     app
@@ -56,6 +56,7 @@
             block
             color="red"
             @click="logout"
+            :disabled="isOffline"
         >
           <v-icon dark class="mr-1">mdi-power-standby</v-icon>
           Cerrar Sesión

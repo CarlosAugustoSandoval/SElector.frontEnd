@@ -1,16 +1,9 @@
 <template>
-  <v-app>
-    <router-view/>
-    <Footer/>
-  </v-app>
+  <router-view/>
 </template>
 
 <script>
-import Footer from '@/components/Footer'
 export default {
-  name: 'Blank',
-  components: {
-    Footer
-  }
+  name: 'Blank'
 }
 </script>

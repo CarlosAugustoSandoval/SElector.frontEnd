@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 
 import vuetify from './plugins/vuetify'
+import './plugins/vue-offline'
 import './plugins/mixin'
 import './plugins/globalComponents'
 import './plugins/veeValidate'

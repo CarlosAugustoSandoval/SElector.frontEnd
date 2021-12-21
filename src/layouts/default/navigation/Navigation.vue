@@ -3,7 +3,7 @@
       app
       absolute
       style="z-index: 2 !important;"
-      :style="`padding-top: ${$vuetify.breakpoint.mdAndUp ? '64' : '56'}px`"
+      :style="`padding-top: ${$vuetify.breakpoint.mdAndUp ? '74' : '66'}px`"
       v-model="navigationDrawer"
   >
     <v-list

@@ -35,7 +35,6 @@ const getters = {
 // actions
 const actions = {
     async login(context, user) {
-        console.log('context', context, user)
         return await new Promise(resolve => {
             Vue.axios.post('auth/login', user)
                 .then(response => {

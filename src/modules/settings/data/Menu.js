@@ -26,7 +26,8 @@ const Menu =[
             color: 'green',
             module: 'Personas',
             requireAuth: true,
-            permission: 'usuarios.inicio',
+            permission: null,
+            // permission: 'usuarios.inicio',
             visible: true
         }
     },

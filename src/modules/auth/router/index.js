@@ -9,7 +9,8 @@ export default {
             component: () => import('@/modules/auth/views/Login'),
             meta: {
                 requiresAuth: false,
-                title: 'Login'
+                title: 'Login',
+                footer: true
             }
         }
         // {

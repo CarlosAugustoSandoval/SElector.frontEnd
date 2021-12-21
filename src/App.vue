@@ -2,15 +2,18 @@
   <v-app>
     <router-view/>
     <snackbar/>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
 import snackbar from '@/components/snackbar/components/Snackbar'
 export default {
   name: 'App',
   components: {
-    snackbar
+    snackbar,
+    Footer
   },
   watch: {
     darkMode: {
