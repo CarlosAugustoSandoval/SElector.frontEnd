@@ -2,6 +2,23 @@
   <v-container>
     <view-title>
       <template v-slot:action>
+        <c-tooltip
+            v-if="unsyncPersons && unsyncPersons.length && isOnline"
+            top
+            tooltip='Sincronizar todos'
+        >
+          <v-btn
+              class='mr-3'
+              color='info'
+              depressed
+              fab
+              small
+              @click="syncPerson(null)"
+          >
+            <v-icon>mdi-cloud-sync</v-icon>
+          </v-btn>
+        </c-tooltip>
+
         <v-btn
             v-if="$vuetify.breakpoint.smAndUp"
             color='primary'
@@ -148,7 +165,24 @@
                 delete-button
                 @delete="deleteItem(item)"
                 top
-            />
+            >
+              <c-tooltip
+                  v-if="!item.sincronizado && isOnline"
+                  top
+                  tooltip='Sincronizar Registro'
+              >
+                <v-btn
+                    class='ma-1'
+                    color='info'
+                    depressed
+                    fab
+                    x-small
+                    @click="syncPerson(item)"
+                >
+                  <v-icon>mdi-cloud-sync</v-icon>
+                </v-btn>
+              </c-tooltip>
+            </options-buttons>
           </template>
         </v-data-table>
       </template>
@@ -169,9 +203,10 @@
         catch-message="Error al eliminar el registro de persona."
         success-message="Se eliminó el registro de persona correctamente."
         :dialog.sync="showConfirmDelete"
-        @success="showConfirmDelete = false"
+        @success="deleted"
         @cancel="itemSelected = null"
     />
+    <loading v-model="loading"/>
   </v-container>
 </template>
 
@@ -191,6 +226,7 @@ export default {
   data: () => ({
     itemSelected: null,
     showConfirmDelete: false,
+    loading: false,
     unsyncPersons: [],
     headers: [
       {
@@ -230,6 +266,13 @@ export default {
       this.itemSelected = item
       this.showConfirmDelete = true
     },
+    deleted() {
+      this.showConfirmDelete = false
+      this.reloadItems()
+      setTimeout(() => {
+        this.itemSelected = null
+      }, 400)
+    },
     registerItem() {
       this.$refs.itemRegister.open()
     },
@@ -242,8 +285,16 @@ export default {
             this.unsyncPersons = response
           })
     },
+    syncPerson(item = null) {
+      this.loading = true
+      store.dispatch('personsModule/syncServerLote', item ? [item] : [])
+          .then(() => {
+            this.reloadItems()
+            this.loading = false
+          })
+    },
     reloadItems() {
-      store.commit('dataRowsModule/SET_RELOAD_ROWS', 'rowsPersons')
+      store.commit('SET_RELOAD_ROWS', 'rowsPersons')
       if (this.isOnline) this.getUnsyncPersons()
     }
   }

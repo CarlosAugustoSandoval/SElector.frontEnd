@@ -30,14 +30,13 @@ const mutations = {
     }
     else state.dataRows.push(DataRow.create(IDataRow))
   },
-  SET_FILTERS (state, payload) {
+  SET_FILTERS_ROWS (state, payload) {
     const data = state.dataRows.find(x => x.name === payload.name)
     if (data) data.filters = payload.filters
   }
 }
 
 export default {
-  namespaced: true,
   state,
   getters,
   actions,

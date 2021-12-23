@@ -243,7 +243,7 @@ export default {
   },
   computed: {
     stateDataRow() {
-      return store.getters['dataRowsModule/myDataRow'](this.name)
+      return store.getters['myDataRow'](this.name)
     }
   },
   watch: {
@@ -280,7 +280,7 @@ export default {
     selectHeaders: {
       handler(val) {
         if (this.name) {
-          store.commit('dataRowsModule/SET_DATA_ROWS_HEADERS', {
+          store.commit('SET_DATA_ROWS_HEADERS', {
             name: this.name,
             version: this.constDataRow?.version || 1,
             headers: val
@@ -342,7 +342,7 @@ export default {
         item.sortable = !!item.sortable
         item.text = item.text || ''
       })
-      store.commit('dataRowsModule/SET_DATA_ROWS_HEADERS', {
+      store.commit('SET_DATA_ROWS_HEADERS', {
         name: this.name,
         version: this.constDataRow?.version || 1,
         headers: this.constDataRow?.version !== this.stateDataRow?.version

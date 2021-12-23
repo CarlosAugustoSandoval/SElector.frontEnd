@@ -27,6 +27,7 @@ const actions = {
                 .toArray()
     },
     getUnsyncPersons () {
+        console.log('llega getUnsyncPersons')
         return db.persons.filter(person => !person.sincronizado).toArray()
     },
     async save(context, person) {
@@ -77,6 +78,46 @@ const actions = {
                 return false
             })
     },
+    async syncServer(context, person) {
+        return await new Promise(resolve => {
+            Vue.axios.post('electores/elector', person)
+                .then(() => {
+                    context.commit('SET_SNACKBAR', {message: `El registro de ${person.nombre1} ${person.apellido1} se sincronizó correctamente.`}, {root: true})
+                    resolve(true)
+                })
+                .catch((error) => {
+                    context.commit('SET_SNACKBAR', { color: 'error', message: `Error ${error?.response?.status || ''} al sincronizar el registro de ${person.nombre1} ${person.apellido1}.` }, { root: true })
+                    resolve(false)
+                })
+        })
+    },
+    async syncServerLote(context, persons = []) {
+        context.commit('SET_TEXT_LOADING', 'Resolviendo sincronización de personas.', {root: true})
+        const unsyncPersons = persons.length ? persons : await context.dispatch('getUnsyncPersons')
+        console.log('unsyncPersons', unsyncPersons.length)
+        if (unsyncPersons.length) {
+            let rowsFailed = 0
+            for (var i = 0; i <= unsyncPersons.length - 1; i++) {
+                context.commit('SET_TEXT_LOADING', `Sincronizando persona ${i} de ${unsyncPersons.length}`, {root: true})
+                context.commit('SET_PERCENT_LOADING', (i / unsyncPersons.length) * 100, {root: true})
+                const unsyncPerson = unsyncPersons[i]
+                const count = await context.dispatch('syncServer', unsyncPerson) ? 0 : 1
+                if(!count) {
+                    unsyncPerson.sincronizado = 1
+                    await db.persons['put'](unsyncPerson)
+                        .catch(() => {
+                            unsyncPerson.sincronizado = 0
+                            context.commit('SET_SNACKBAR', { message: `Error al actualizar el registro.` }, {root: true})
+                        })
+                }
+                rowsFailed = rowsFailed + count
+            }
+            context.commit('SET_SNACKBAR',{
+                color: rowsFailed ? 'orange' : 'success',
+                message: `El proceso de sincronización ha terminado${rowsFailed === 0 ? '' : ` con ${rowsFailed} ${rowsFailed === 1 ? 'error' : 'errores'}`}`
+            }, {root: true})
+        }
+    }
     // async save(context, person) {
     //     // eslint-disable-next-line no-async-promise-executor
     //     return await new Promise(async resolve => {
@@ -98,20 +139,6 @@ const actions = {
     //         resolve(true)
     //     })
     // },
-    async syncServer(context, person) {
-        return await new Promise(resolve => {
-            Vue.axios.post('electores/elector', person)
-                .then(() => {
-                    context.commit('SET_SNACKBAR', {message: `El registro de ${person.nombre1} ${person.apellido1} se sincronizó correctamente.`}, {root: true})
-                    context.commit('SET_SYNC_PERSON', person)
-                    resolve(true)
-                })
-                .catch((error) => {
-                    context.commit('SET_SNACKBAR', { color: 'error', message: `Error ${error?.response?.status || ''} al sincronizar el registro de ${person.nombre1} ${person.apellido1}.` }, { root: true })
-                    resolve(false)
-                })
-        })
-    }
     // async delete(context, person) {
     //     return await new Promise(resolve => {
     //         context.commit('SET_DELETE_PERSON', person)

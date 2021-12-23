@@ -26,7 +26,7 @@ Vue.mixin({
   },
   methods: {
     filterRows (filters, name) {
-      store.commit('dataRowsModule/SET_FILTERS', { filters: filters, name: name})
+      store.commit('SET_FILTERS_ROWS', { filters: filters, name: name})
     },
     clone (object) {
       return JSON.parse(JSON.stringify(object))

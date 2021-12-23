@@ -8,7 +8,6 @@
         v-model="model.filter_created_between"
         label="Fecha de registro"
         :max="moment().format('YYYY-MM-DD')"
-        period-origin="today"
         show-select-periods
     />
   </v-col>
@@ -30,7 +29,7 @@ export default {
         if (val.length) string = string + `filter[filter_created_between]=${val.join(',')}`
         this.filterRows(string, 'rowsPersons')
       },
-      immediate: true
+      immediate: false
     }
   }
 }
