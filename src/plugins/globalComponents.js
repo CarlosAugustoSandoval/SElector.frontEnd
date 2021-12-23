@@ -12,6 +12,10 @@ import CCard from '@/components/globalComponents/CCard'
 import CConfirm from '@/components/globalComponents/CConfirm'
 import Loading from '@/components/globalComponents/loading/components/Loading'
 import ViewTitle from '@/components/globalComponents/ViewTitle'
+import CRows from '@/components/globalComponents/cDataRows/components/CRows'
+import CChip from '@/components/globalComponents/CChip'
+import CDateRange from '@/components/globalComponents/CDateRange'
+import OptionsButtons from '@/components/globalComponents/OptionsButtons'
 
 Vue.use({
   install (Vue) {
@@ -27,6 +31,10 @@ Vue.use({
     Vue.component('CConfirm', CConfirm)
     Vue.component('Loading', Loading)
     Vue.component('ViewTitle', ViewTitle)
+    Vue.component('CRows', CRows)
+    Vue.component('CChip', CChip)
+    Vue.component('CDateRange', CDateRange)
+    Vue.component('OptionsButtons', OptionsButtons)
 
   }
 })

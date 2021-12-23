@@ -8,6 +8,8 @@ import personsModule from '@/modules/persons/store'
 import snackbar from '@/components/snackbar/store'
 import loading from '@/components/globalComponents/loading/store'
 
+import dataRowsModule from '@/components/globalComponents/cDataRows/store'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,7 +19,8 @@ export default new Vuex.Store({
     settingsModule,
     personsModule,
     snackbar,
-    loading
+    loading,
+    dataRowsModule
   },
   plugins: [persist.plugin]
 })

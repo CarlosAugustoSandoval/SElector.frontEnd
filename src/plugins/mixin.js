@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@/store'
 import {mapGetters, mapState} from 'vuex'
 
 Vue.mixin({
@@ -24,6 +25,9 @@ Vue.mixin({
     }
   },
   methods: {
+    filterRows (filters, name) {
+      store.commit('dataRowsModule/SET_FILTERS', { filters: filters, name: name})
+    },
     clone (object) {
       return JSON.parse(JSON.stringify(object))
     },

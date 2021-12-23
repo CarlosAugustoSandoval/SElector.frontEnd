@@ -113,16 +113,6 @@
                     :disabled="identificacionVerificada < 1"
                 />
               </v-col>
-              <v-col cols="12" sm="6">
-                <c-select-complete
-                    v-model="item.medio_contacto"
-                    label="Medio de contacto"
-                    name="medio de contacto"
-                    rules="required"
-                    :items="mediosContacto"
-                    :disabled="identificacionVerificada < 1"
-                />
-              </v-col>
               <v-col cols="12" md="6">
                 <c-text
                     v-model="item.celular"
@@ -200,18 +190,19 @@
                     :disabled="identificacionVerificada < 1"
                 />
               </v-col>
-              <!--                    <v-col cols="12">-->
-              <!--                      <c-select-complete-->
-              <!--                          v-model="item.etnia"-->
-              <!--                          label="Etnia"-->
-              <!--                          rules="required"-->
-              <!--                          name="etnia"-->
-              <!--                          :items="etnias"-->
-              <!--                          item-text="nombre"-->
-              <!--                          item-value="codigo"-->
-              <!--                          :disabled="identificacionVerificada < 1"-->
-              <!--                      />-->
-              <!--                    </v-col>-->
+              <v-col cols="12">
+                <c-radio
+                    v-model="item.testigo_electoral"
+                    :items="[{ text: 'Si', value: 'SI' },{ text: 'No', value: 'NO' }]"
+                    itemValue="value"
+                    itemText="text"
+                    rules="required"
+                    name="testigo electoral"
+                    label="¿Es testigo electoral?"
+                    :column="!$vuetify.breakpoint.smAndUp"
+                    :disabled="identificacionVerificada < 1"
+                />
+              </v-col>
               <v-col cols="12">
                 <v-subheader class="subtitle-2">
                   <v-icon left>mdi-home-city</v-icon>
@@ -303,7 +294,7 @@ export default {
     item: null
   }),
   computed: {
-    ...mapState('dataModule', ['tiposIdentificacion', 'sexos', 'mediosContacto', 'departamentos', 'municipios', 'zonas', 'etnias']),
+    ...mapState('dataModule', ['tiposIdentificacion', 'sexos', 'departamentos', 'municipios', 'zonas']),
     municipiosResidencia() {
       return (this.item?.codigo_departamento && this.municipios?.length && this.municipios.filter(x => x.codigo_departamento === this.item.codigo_departamento)) || []
     },
@@ -343,6 +334,7 @@ export default {
         this.loading = true
         this.$store.dispatch('personsModule/save', this.item)
             .then(resolve => {
+              this.$emit('saved')
               if (resolve) this.close()
               this.loading = false
             })

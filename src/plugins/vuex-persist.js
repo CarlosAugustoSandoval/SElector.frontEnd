@@ -6,6 +6,7 @@ export default new VuexPersistence({
     modules: [
         'authModule',
         'settingsModule',
-        'personsModule'
+        'personsModule',
+        'dataRowsModule'
     ]
 })
