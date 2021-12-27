@@ -6,6 +6,8 @@ import store from '@/store'
 import settings from '@/modules/settings/router'
 import auth from '@/modules/auth/router'
 import persons from '@/modules/persons/router'
+import users from '@/modules/users/router'
+import roles from '@/modules/roles/router'
 import error from '@/modules/error/router'
 
 Vue.use(VueRouter)
@@ -14,6 +16,8 @@ const routes = [
     settings,
     auth,
     persons,
+    users,
+    roles,
     error
 ]
 
@@ -39,7 +43,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requireAuth)) {
         if (!store.state.authModule.access_token) {
             next({ name: 'Login' })
-        } else if (to.name === 'Home' || (await store.getters['authModule/permisoName'](to.meta.permission))) {
+        } else if (to.name === 'Home' || (await store.getters['authModule/permissionByName'](to.meta.permission))) {
             next()
         } else {
             setTimeout(() => {

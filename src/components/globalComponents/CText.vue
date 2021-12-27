@@ -21,7 +21,17 @@
         @blur="changeCase"
         persistent-hint
         :hint="hint"
-    />
+    >
+      <template v-slot:prepend>
+        <slot name="prepend"/>
+      </template>
+      <template v-slot:prepend-inner>
+        <slot name="prepend-inner"/>
+      </template>
+      <template v-slot:append-outer>
+        <slot name="append-outer"/>
+      </template>
+    </v-text-field>
   </ValidationProvider>
 </template>
 

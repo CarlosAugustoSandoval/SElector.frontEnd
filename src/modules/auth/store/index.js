@@ -9,7 +9,7 @@ const state = {
 
 // getters
 const getters = {
-    permisos: state => {
+    permissions: state => {
         if (state.user && state.user.user_permissions && state.user.user_permissions.length) {
             return state.user.user_permissions.reduce((value, key) => {
                 value[key] = value[key] || true
@@ -18,10 +18,10 @@ const getters = {
         }
         return {}
     },
-    permisoName: state => name => {
+    permissionByName: state => name => {
         return name ? state.user?.user_permissions?.length && !!state.user.user_permissions.find(x => x.toString() === name.toString()) : true
     },
-    permisosModule: state => modulo => {
+    permissionsByModule: state => modulo => {
         if (state.user && state.user.user_permissions && state.user.user_permissions.length) {
             return state.user.user_permissions.filter(x => x.toString().toLowerCase().split('.')[0] ===  modulo.toString().toLowerCase()).map(x => x.split(`${modulo}.`)[1]).reduce((value, key) => {
                 value[key] = value[key] || true

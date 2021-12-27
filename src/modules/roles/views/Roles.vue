@@ -7,7 +7,7 @@
       >
         <c-tooltip
             left
-            tooltip="Crear Usuario"
+            tooltip="Crear Rol"
             :disabled="$vuetify.breakpoint.smAndUp"
         >
           <v-btn
@@ -18,7 +18,7 @@
               @click.stop="createItem"
           >
             <v-icon v-if="$vuetify.breakpoint.xsOnly">mdi-plus</v-icon>
-            {{$vuetify.breakpoint.smAndUp ? 'Crear usuario' : ''}}
+            {{$vuetify.breakpoint.smAndUp ? 'Crear rol' : ''}}
           </v-btn>
         </c-tooltip>
       </template>
@@ -26,8 +26,8 @@
     <v-row justify="center">
       <v-col cols="12">
         <c-rows
-            name="rowsUsers"
-            route="users"
+            name="rowsRoles"
+            route="roles"
             :make-headers="itemsHeaders"
             :initial-run="true"
         >
@@ -42,39 +42,64 @@
                 disable-pagination
             >
               <template v-slot:item.options="{ item }">
-                <options-buttons
-                    edit-button
-                    edit-color="teal"
-                    edit-icon="mdi-cog"
-                    @edit="manageItem(item)"
-                    delete-button
-                    @delete="deleteItem(item)"
-                    top
-                />
+                <div class="optionsButtons">
+                  <v-toolbar>
+                    <c-tooltip
+                        v-if="permissions.edit"
+                        top
+                        tooltip="Gestionar"
+                    >
+                      <v-btn
+                          class="ma-1"
+                          color="teal"
+                          depressed
+                          fab
+                          x-small
+                          dark
+                          @click="itemManagement(item)"
+                      >
+                        <v-icon>mdi-cog</v-icon>
+                      </v-btn>
+                    </c-tooltip>
+                    <c-tooltip
+                        v-if="permissions.delete"
+                        top
+                        tooltip="Eliminar"
+                    >
+                      <v-btn
+                          class="ma-1"
+                          color="error"
+                          depressed
+                          fab
+                          x-small
+                          dark
+                          @click="deleteItem(item)"
+                      >
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </c-tooltip>
+                  </v-toolbar>
+                </div>
               </template>
             </v-data-table>
           </template>
         </c-rows>
       </v-col>
     </v-row>
-    <user-register
-        ref="itemRegister"
-        @saved="val => registeredItem(val)"
-    />
-    <user-management
+    <rol-management
         ref="itemManagement"
         @saved="rowsReload"
     />
     <c-confirm
         v-if="itemSelected"
-        title="Eliminar registro de usuario"
-        :subtitle="`¿Está seguro de continuar con la eliminación del registro del usuario <strong>${itemSelected.name}</strong>?`"
+        title="Eliminar registro de rol"
+        :subtitle="`¿Está seguro de continuar con la eliminación del registro del rol <strong>${itemSelected.name}</strong>?`"
         text-confirm-button="Si, Eliminar"
         color-confirm-button="error"
         action="delete"
-        :route="`users/${itemSelected.id}`"
-        catch-message="Error al eliminar el registro del usuario."
-        success-message="Se eliminó el registro del usuario correctamente."
+        :route="`roles/${itemSelected.id}`"
+        catch-message="Error al eliminar el registro del rol."
+        success-message="Se eliminó el registro del rol correctamente."
         :dialog.sync="showConfirmDelete"
         @success="val => val ? rowsReload() : ''"
         @cancel="itemSelected = null"
@@ -83,14 +108,12 @@
 </template>
 
 <script>
-import UserRegister from '../components/UserRegister'
-import UserManagement from '../components/UserManagement'
+import RolManagement from '../components/RolManagement'
 import store from '@/store'
 export default {
-  name: 'Users',
+  name: 'Roles',
   components: {
-    UserRegister,
-    UserManagement
+    RolManagement
   },
   data: () => ({
     itemSelected: null,
@@ -101,14 +124,9 @@ export default {
         value: 'id'
       },
       {
-        text: 'Nombre',
+        text: 'Rol',
         value: 'name',
         columnSelectable: false
-      },
-      {
-        text: 'Correo Electrónico',
-        sortable: true,
-        value: 'email'
       },
       {
         value: 'options',
@@ -118,7 +136,7 @@ export default {
   }),
   computed: {
     permissions () {
-      return store.getters['authModule/permissionsByModule']('users')
+      return store.getters['authModule/permissionsByModule']('roles')
     }
   },
   methods: {
@@ -127,17 +145,17 @@ export default {
       this.showConfirmDelete = true
     },
     createItem () {
-      this.$refs.itemRegister.open()
+      this.$refs.itemManagement.open()
     },
-    manageItem (item) {
+    itemManagement (item) {
       this.$refs.itemManagement.open(item)
     },
     registeredItem (item) {
       this.rowsReload()
-      this.manageItem(item)
+      this.itemManagement(item)
     },
     rowsReload () {
-      store.commit('SET_RELOAD_ROWS', 'rowsUsers')
+      store.commit('SET_RELOAD_ROWS', 'rowsRoles')
     }
   }
 }

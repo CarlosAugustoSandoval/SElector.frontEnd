@@ -1,27 +1,9 @@
-export default {
+import Menu from '@/modules/settings/data/Menu'
+
+const routes = {
     path: '/usuarios',
-    redirect: {name: 'Usuarios'},
-    component: () => import('@/layouts/full/Layout'),
-    children: [
-        {
-            name: 'Usuarios',
-            path: 'usuarios',
-            component: () => import('@/modules/usuarios/views/Usuarios'),
-            meta: {
-                requiresAuth: true,
-                withAccess: 'usuarios.inicio',
-                title: {
-                    text: 'Usuarios',
-                    icon: 'mdi-account-group',
-                    color: 'indigo',
-                    breadcrumbs: [
-                        {
-                            text: 'Usuarios',
-                            disabled: true
-                        }
-                    ]
-                }
-            }
-        }
-    ]
+    redirect: { name: 'Users' },
+    component: () => import('@/layouts/default/Layout'),
+    children: Menu.filter(menu => menu.meta?.module === 'Users' && menu.type !== 'subheader')
 }
+export default routes

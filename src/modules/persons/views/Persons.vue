@@ -22,7 +22,7 @@
         <v-btn
             v-if="$vuetify.breakpoint.smAndUp"
             color='primary'
-            @click='registerItem'
+            @click='createItem'
         >
           Registrar Persona
         </v-btn>
@@ -30,7 +30,7 @@
             v-else
             fab
             color='primary'
-            @click='registerItem'
+            @click='createItem'
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -189,7 +189,7 @@
     </c-rows>
     <person-register
         ref='itemRegister'
-        @saved="reloadItems"
+        @saved="rowsReload"
     />
     <c-confirm
         v-if="itemSelected"
@@ -268,12 +268,12 @@ export default {
     },
     deleted() {
       this.showConfirmDelete = false
-      this.reloadItems()
+      this.rowsReload()
       setTimeout(() => {
         this.itemSelected = null
       }, 400)
     },
-    registerItem() {
+    createItem() {
       this.$refs.itemRegister.open()
     },
     editItem(item) {
@@ -289,11 +289,11 @@ export default {
       this.loading = true
       store.dispatch('personsModule/syncServerLote', item ? [item] : [])
           .then(() => {
-            this.reloadItems()
+            this.rowsReload()
             this.loading = false
           })
     },
-    reloadItems() {
+    rowsReload() {
       store.commit('SET_RELOAD_ROWS', 'rowsPersons')
       if (this.isOnline) this.getUnsyncPersons()
     }

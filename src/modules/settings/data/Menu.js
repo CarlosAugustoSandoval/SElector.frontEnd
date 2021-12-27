@@ -36,8 +36,40 @@ const Menu =[
         meta: {
             title: 'Administrativo',
             icon: 'mdi-cog',
-            module: 'Personas',
-            permission: 'usuarios.inicio'
+            module: 'Admin',
+            permission: null
+        }
+    },
+    {
+        name: 'Users',
+        path: '/users',
+        component: () => import('@/modules/users/views/Users'),
+        meta: {
+            title: 'Usuarios',
+            subtitle: 'Registro y Gestión',
+            icon: 'mdi-account-group',
+            color: 'red',
+            module: 'Users',
+            requireAuth: true,
+            permission: null,
+            // permission: 'usuarios.inicio',
+            visible: true
+        }
+    },
+    {
+        name: 'Roles',
+        path: '/roles',
+        component: () => import('@/modules/roles/views/Roles'),
+        meta: {
+            title: 'Roles',
+            subtitle: 'Registro y Gestión',
+            icon: 'mdi-account-group',
+            color: 'indigo',
+            module: 'Roles',
+            requireAuth: true,
+            permission: null,
+            // permission: 'usuarios.inicio',
+            visible: true
         }
     }
 ]

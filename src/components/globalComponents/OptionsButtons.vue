@@ -15,6 +15,7 @@
             :color='detailColor'
             depressed
             fab
+            dark
             x-small
             @click="$emit('detail')"
         >
@@ -35,6 +36,7 @@
             :color='editColor'
             depressed
             fab
+            dark
             x-small
             @click="$emit('edit')"
         >
@@ -55,6 +57,7 @@
             :color='deleteColor'
             depressed
             fab
+            dark
             x-small
             @click="$emit('delete')"
         >
