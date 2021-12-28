@@ -4,8 +4,8 @@ import VueAxios from 'vue-axios'
 import router from '../router'
 import store from '../store'
 
-axios.defaults.baseURL = 'http://localhost:8000/api'
-// axios.defaults.baseURL = 'http://179.50.78.197:8000/api'
+// axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = 'http://179.50.78.197:8000/api'
 Vue.use(VueAxios, axios)
 
 axios.interceptors.response.use(undefined, error => {
