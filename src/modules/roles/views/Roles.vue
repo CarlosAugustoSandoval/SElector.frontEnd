@@ -42,44 +42,16 @@
                 disable-pagination
             >
               <template v-slot:item.options="{ item }">
-                <div class="optionsButtons">
-                  <v-toolbar>
-                    <c-tooltip
-                        v-if="permissions.edit"
-                        top
-                        tooltip="Gestionar"
-                    >
-                      <v-btn
-                          class="ma-1"
-                          color="teal"
-                          depressed
-                          fab
-                          x-small
-                          dark
-                          @click="itemManagement(item)"
-                      >
-                        <v-icon>mdi-cog</v-icon>
-                      </v-btn>
-                    </c-tooltip>
-                    <c-tooltip
-                        v-if="permissions.delete"
-                        top
-                        tooltip="Eliminar"
-                    >
-                      <v-btn
-                          class="ma-1"
-                          color="error"
-                          depressed
-                          fab
-                          x-small
-                          dark
-                          @click="deleteItem(item)"
-                      >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
-                    </c-tooltip>
-                  </v-toolbar>
-                </div>
+                <options-buttons
+                    :edit-button="permissions.edit"
+                    edit-tooltip="Gestionar"
+                    edit-color="teal"
+                    edit-icon="mdi-cog"
+                    @edit="manageItem(item)"
+                    :delete-button="permissions.delete"
+                    @delete="deleteItem(item)"
+                    top
+                />
               </template>
             </v-data-table>
           </template>
@@ -147,12 +119,12 @@ export default {
     createItem () {
       this.$refs.itemManagement.open()
     },
-    itemManagement (item) {
+    manageItem (item) {
       this.$refs.itemManagement.open(item)
     },
     registeredItem (item) {
       this.rowsReload()
-      this.itemManagement(item)
+      this.manageItem(item)
     },
     rowsReload () {
       store.commit('SET_RELOAD_ROWS', 'rowsRoles')

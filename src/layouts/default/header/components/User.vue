@@ -12,6 +12,7 @@
     <v-list-item
         v-else
         dark
+        style="max-width: 300px !important;"
         @click.stop="setCustomizerDrawer(!customizerDrawer)"
     >
       <v-list-item-avatar

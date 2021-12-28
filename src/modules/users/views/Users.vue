@@ -43,11 +43,12 @@
             >
               <template v-slot:item.options="{ item }">
                 <options-buttons
-                    edit-button
+                    :edit-button="permissions.edit"
+                    edit-tooltip="Gestionar"
                     edit-color="teal"
                     edit-icon="mdi-cog"
                     @edit="manageItem(item)"
-                    delete-button
+                    :delete-button="permissions.delete"
                     @delete="deleteItem(item)"
                     top
                 />

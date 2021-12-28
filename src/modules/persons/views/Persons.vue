@@ -44,7 +44,7 @@
         filters-title="Filtros de personas"
         filters-max-width="900"
         advance-filters
-        :initial-run="false"
+        :initial-run="true"
     >
       <persons-filters slot="filters"/>
       <template v-slot:filterstags="{ tags }">
