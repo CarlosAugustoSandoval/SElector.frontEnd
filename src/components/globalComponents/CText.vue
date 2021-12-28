@@ -19,8 +19,10 @@
         :counter="counter"
         @focus="changeCase"
         @blur="changeCase"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hint="hint"
+        :hide-details="hideDetails"
+        :loading="loading"
     >
       <template v-slot:prepend>
         <slot name="prepend"/>

@@ -32,6 +32,7 @@
             :clearable="clearable"
             :hint="hint"
             :persistent-hint="persistentHint"
+            :hide-details="hideDetails"
         >
           <template v-slot:prepend>
             <v-menu

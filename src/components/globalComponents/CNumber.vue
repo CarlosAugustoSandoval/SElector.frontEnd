@@ -1,6 +1,7 @@
 <template>
   <ValidationProvider
       :name="name"
+      :vid="vid"
       :rules="(rules ? `${rules}|`: '') + 'numeric'"
       v-slot="{ errors }"
   >
@@ -12,49 +13,29 @@
         :max="max"
         :step="step"
         :label="label"
-        outlined
+        :outlined="outlined"
         :dense="dense"
         :disabled="disabled"
         :readonly="readonly"
         :error-messages="errors"
         :clearable="clearable"
         :suffix="suffix"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hint="hint"
+        :hide-details="hideDetails"
+        :loading="loading"
     />
   </ValidationProvider>
 </template>
 
 <script>
+import FieldMixin from '@/mixins/FieldMixin'
 export default {
   name: 'CNumber',
+  mixins: [FieldMixin],
   props: {
     value: {
       type: [String, Number],
-      default: null
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
-    name: {
-      type: String,
-      default: null
-    },
-    hint: {
-      type: String,
-      default: null
-    },
-    rules: {
-      type: String,
-      default: null
-    },
-    suffix: {
-      type: String,
       default: null
     },
     step: {
@@ -68,22 +49,6 @@ export default {
     max: {
       type: [Number, String],
       default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    clearable: {
-      type: Boolean,
-      default: true
-    },
-    dense: {
-      type: Boolean,
-      default: true
     }
   },
   data: () => ({
@@ -105,7 +70,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

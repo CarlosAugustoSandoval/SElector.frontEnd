@@ -59,6 +59,10 @@ export default {
         rules: {
             type: String,
             default: null
+        },
+        suffix: {
+            type: String,
+            default: null
         }
     }
 }

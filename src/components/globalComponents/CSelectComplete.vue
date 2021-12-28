@@ -25,7 +25,7 @@
         :loading="loading"
         @change="val => $emit('change', val)"
         :return-object="returnObject"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hint="hint"
     >
     </v-select>
@@ -49,7 +49,7 @@
         :loading="loading"
         :return-object="returnObject"
         @change="val => $emit('change', val)"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hint="hint"
     >
     </v-autocomplete>
@@ -57,8 +57,11 @@
 </template>
 
 <script>
+import FieldMixin from '@/mixins/FieldMixin'
+
 export default {
   name: 'CSelectComplete',
+  mixins: [FieldMixin],
   props: {
     value: {
       type: [Number, String, Object, Array],
@@ -72,63 +75,11 @@ export default {
       type: String,
       default: null
     },
-    hint: {
-      type: String,
-      default: null
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
     items: {
       type: Array,
       default: () => []
     },
-    name: {
-      type: String,
-      default: null
-    },
-    vid: {
-      type: String,
-      default: null
-    },
-    outlined: {
-      type: Boolean,
-      default: true
-    },
-    rules: {
-      type: String,
-      default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
     returnObject: {
-      type: Boolean,
-      default: false
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    clearable: {
-      type: Boolean,
-      default: true
-    },
-    dense: {
-      type: Boolean,
-      default: true
-    },
-    hideDetails: {
       type: Boolean,
       default: false
     },

@@ -16,8 +16,10 @@
         :error-messages="errors"
         :clearable="clearable"
         :counter="counter"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hint="hint"
+        :hide-details="hideDetails"
+        :loading="loading"
         :type="showPassword ? 'text' : 'password'"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append="showPassword = !showPassword"
@@ -26,59 +28,13 @@
 </template>
 
 <script>
+import FieldMixin from '@/mixins/FieldMixin'
 export default {
   name: 'CPassword',
+  mixins: [FieldMixin],
   props: {
     value: {
       type: [String, Number],
-      default: null
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
-    name: {
-      type: String,
-      default: null
-    },
-    hint: {
-      type: String,
-      default: null
-    },
-    vid: {
-      type: String,
-      default: null
-    },
-    rules: {
-      type: String,
-      default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    outlined: {
-      type: Boolean,
-      default: true
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    clearable: {
-      type: Boolean,
-      default: true
-    },
-    dense: {
-      type: Boolean,
-      default: true
-    },
-    counter: {
-      type: Number,
       default: null
     }
   },

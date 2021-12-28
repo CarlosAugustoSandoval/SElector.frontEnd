@@ -9,15 +9,16 @@
         v-model="dateFormatted"
         :label="label"
         :placeholder="placeholder"
-        outlined
+        :outlined="outlined"
         :dense="dense"
         :disabled="disabled"
         :readonly="readonly"
         :error-messages="errors"
         :clearable="clearable"
         :hint="hint"
-        persistent-hint
+        :persistent-hint="persistentHint"
         :hide-details="hideDetails"
+        :loading="loading"
         v-mask="'##/##/####'"
     >
       <template v-slot:prepend-inner>
@@ -49,34 +50,12 @@
 </template>
 
 <script>
+import FieldMixin from '@/mixins/FieldMixin'
 export default {
   name: 'CDateManual',
+  mixins: [FieldMixin],
   props: {
     value: {
-      type: String,
-      default: null
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
-    hint: {
-      type: String,
-      default: null
-    },
-    name: {
-      type: String,
-      default: null
-    },
-    vid: {
-      type: String,
-      default: null
-    },
-    rules: {
       type: String,
       default: null
     },
@@ -87,26 +66,6 @@ export default {
     max: {
       type: [Number, String],
       default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    hideDetails: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    clearable: {
-      type: Boolean,
-      default: true
-    },
-    dense: {
-      type: Boolean,
-      default: true
     }
   },
   data: () => ({

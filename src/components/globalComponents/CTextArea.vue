@@ -9,7 +9,7 @@
         v-model="model"
         :label="label"
         :placeholder="placeholder"
-        outlined
+        :outlined="outlined"
         :dense="dense"
         :disabled="disabled"
         :readonly="readonly"
@@ -21,13 +21,16 @@
         @focus="changeCase"
         @blur="changeCase"
         :hide-details="hideDetails"
+        :loading="loading"
     />
   </ValidationProvider>
 </template>
 
 <script>
+import FieldMixin from '@/mixins/FieldMixin'
 export default {
   name: 'CTextArea',
+  mixins: [FieldMixin],
   props: {
     value: {
       type: [String, Number],
@@ -36,42 +39,6 @@ export default {
     rows: {
       type: [String, Number],
       default: 3
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
-    name: {
-      type: String,
-      default: null
-    },
-    rules: {
-      type: String,
-      default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    hideDetails: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    clearable: {
-      type: Boolean,
-      default: true
-    },
-    dense: {
-      type: Boolean,
-      default: true
     },
     autoGrow: {
       type: Boolean,
@@ -84,10 +51,6 @@ export default {
     lowerCase: {
       type: Boolean,
       default: false
-    },
-    counter: {
-      type: Number,
-      default: null
     }
   },
   data: () => ({
