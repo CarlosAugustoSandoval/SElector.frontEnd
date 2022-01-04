@@ -30,7 +30,7 @@ export default {
   }),
   created () {
     self.addEventListener('message', e => {
-      console.log('eeeee', e)
+      console.log('un cambio sin preveer', e)
       if (e.data.action === 'skipWaiting')  {
         this.showChanges = true
       }
