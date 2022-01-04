@@ -15,6 +15,11 @@ if (process.env.NODE_ENV === 'production') {
     },
     registered (registration) {
       console.log('Service worker has been registered.', registration)
+      caches.keys().then(names => {
+        for (let name of names)
+          console.log('delete en registered=> ', name)
+        caches.delete(name)
+      })
     },
     cached () {
       console.log('Content has been cached for offline use.')
