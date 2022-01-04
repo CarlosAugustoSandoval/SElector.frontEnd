@@ -25,9 +25,10 @@ if (process.env.NODE_ENV === 'production') {
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
       caches.keys().then(names => {
-        for (let name of names)
+        for (let name of names) {
           console.log('delete => ', name)
           caches.delete(name)
+        }
       })
     },
     offline () {
