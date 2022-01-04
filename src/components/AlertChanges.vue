@@ -29,7 +29,7 @@ export default {
     showChanges: false
   }),
   created () {
-    window.addEventListener('message', e => {
+    self.addEventListener('activate', e => {
       console.log('un cambio', e)
       if (e.data.action === 'skipWaiting')  {
         this.showChanges = true
