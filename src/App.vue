@@ -35,6 +35,12 @@ export default {
       },
       immediate: true
     }
+  },
+  created() {
+    console.log('created app')
+  },
+  mounted() {
+    console.log('mounted app')
   }
 }
 </script>
