@@ -29,8 +29,8 @@ export default {
     showChanges: false
   }),
   created () {
-    self.addEventListener('message', e => {
-      console.log('un cambio sin preveer', e)
+    window.addEventListener('message', e => {
+      console.log('un cambio', e)
       if (e.data.action === 'skipWaiting')  {
         this.showChanges = true
       }
