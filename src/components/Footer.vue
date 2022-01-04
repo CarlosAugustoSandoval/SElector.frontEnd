@@ -29,6 +29,7 @@
       </v-icon>
       Sin conexión a Internet
     </v-alert>
+    <slot></slot>
   </v-footer>
 </template>
 <script>
