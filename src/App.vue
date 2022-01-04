@@ -3,6 +3,7 @@
     <router-view/>
     <snackbar/>
     <Footer>
+      <alert-changes/>
       <alert-install/>
     </Footer>
   </v-app>
@@ -12,12 +13,14 @@
 import Footer from '@/components/Footer'
 import snackbar from '@/components/snackbar/components/Snackbar'
 import AlertInstall from '@/components/AlertInstall'
+import AlertChanges from '@/components/AlertChanges'
 export default {
   name: 'App',
   components: {
     snackbar,
     Footer,
-    AlertInstall
+    AlertInstall,
+    AlertChanges
   },
   watch: {
     darkMode: {
