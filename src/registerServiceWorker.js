@@ -4,9 +4,9 @@ import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`,  {
-    registrationOptions: {
-      updateViaCache: "all"
-    },
+    // registrationOptions: {
+    //   updateViaCache: "all"
+    // },
     ready () {
       console.log(
         'App is being served from cache by a service worker.\n' +
@@ -24,8 +24,11 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
-      let worker = registration.waiting
-      worker.postMessage('skipWaiting')
+      caches.keys().then(names => {
+        for (let name of names)
+          console.log('delete => ', name)
+          caches.delete(name)
+      })
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')

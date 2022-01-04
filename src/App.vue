@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      console.log('mounted app 500')
+      console.log('mounted app 500', self.caches)
     }, 500)
   }
 }
