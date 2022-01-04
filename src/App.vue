@@ -40,7 +40,9 @@ export default {
     console.log('created app')
   },
   mounted() {
-    console.log('mounted app')
+    setTimeout(() => {
+      console.log('mounted app 500')
+    }, 500)
   }
 }
 </script>
