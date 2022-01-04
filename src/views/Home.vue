@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home
+      Inicio
     </div>
   </v-container>
 </template>
