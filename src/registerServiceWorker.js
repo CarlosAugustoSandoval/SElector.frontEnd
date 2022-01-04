@@ -24,10 +24,10 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
-      caches.keys().then(names => {
+      window.caches.keys().then(async names => {
         for (let name of names) {
-          console.log('delete => ', name)
-          caches.delete(name)
+          await window.caches.delete(name)
+          console.log('deleted => ', name)
         }
       })
     },
