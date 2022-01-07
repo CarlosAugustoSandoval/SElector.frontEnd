@@ -20,11 +20,11 @@ const Menu =[
         component: () => import('@/modules/persons/views/Persons'),
         // component: () => import('@/modules/error/views/InConstruction'),
         meta: {
-            title: 'Personas',
+            title: 'Electores',
             subtitle: 'Registro y Gestión',
             icon: 'mdi-account-group',
             color: 'green',
-            module: 'Personas',
+            module: 'Electores',
             requireAuth: true,
             permission: null,
             // permission: 'usuarios.inicio',
@@ -47,7 +47,7 @@ const Menu =[
         meta: {
             title: 'Usuarios',
             subtitle: 'Registro y Gestión',
-            icon: 'mdi-account-group',
+            icon: 'mdi-account-multiple',
             color: 'red',
             module: 'Users',
             requireAuth: true,
@@ -63,7 +63,7 @@ const Menu =[
         meta: {
             title: 'Roles',
             subtitle: 'Registro y Gestión',
-            icon: 'mdi-account-group',
+            icon: 'mdi-account-switch',
             color: 'indigo',
             module: 'Roles',
             requireAuth: true,

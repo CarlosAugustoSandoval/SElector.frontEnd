@@ -2,38 +2,44 @@
   <v-container>
     <view-title>
       <template v-slot:action>
+        <template v-if="unsyncPersons && unsyncPersons.length && isOnline">
+          <c-tooltip
+              left
+              tooltip="Sincronizar todo"
+              :disabled="$vuetify.breakpoint.smAndUp"
+          >
+            <v-btn
+                color="info"
+                depressed
+                class='mr-3'
+                :small="!!$vuetify.breakpoint.xsOnly"
+                :fab="$vuetify.breakpoint.xsOnly"
+                @click="syncPerson(null)"
+            >
+              <v-icon v-if="$vuetify.breakpoint.xsOnly">mdi-cloud-sync</v-icon>
+              {{$vuetify.breakpoint.smAndUp ? 'Sincronizar todo' : ''}}
+            </v-btn>
+          </c-tooltip>
+        </template>
+
+
+
         <c-tooltip
-            v-if="unsyncPersons && unsyncPersons.length && isOnline"
-            top
-            tooltip='Sincronizar todos'
+            left
+            tooltip="Crear elector"
+            :disabled="$vuetify.breakpoint.smAndUp"
         >
           <v-btn
-              class='mr-3'
-              color='info'
+              color="primary"
               depressed
-              fab
-              small
-              @click="syncPerson(null)"
+              :small="!!$vuetify.breakpoint.xsOnly"
+              :fab="$vuetify.breakpoint.xsOnly"
+              @click.stop="createItem"
           >
-            <v-icon>mdi-cloud-sync</v-icon>
+            <v-icon v-if="$vuetify.breakpoint.xsOnly">mdi-plus</v-icon>
+            {{$vuetify.breakpoint.smAndUp ? 'Crear elector' : ''}}
           </v-btn>
         </c-tooltip>
-
-        <v-btn
-            v-if="$vuetify.breakpoint.smAndUp"
-            color='primary'
-            @click='createItem'
-        >
-          Registrar Persona
-        </v-btn>
-        <v-btn
-            v-else
-            fab
-            color='primary'
-            @click='createItem'
-        >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
       </template>
     </view-title>
     <c-rows
@@ -41,7 +47,7 @@
         route="electores/elector"
         dispatch="personsModule/getPersons"
         :make-headers="headers"
-        filters-title="Filtros de personas"
+        filters-title="Filtros de electores"
         filters-max-width="900"
         advance-filters
         :initial-run="true"
@@ -193,15 +199,15 @@
     />
     <c-confirm
         v-if="itemSelected"
-        title="Eliminar registro de persona"
+        title="Eliminar registro de elector"
         :subtitle="`¿Está seguro de continuar con la eliminación del registro de <strong>${itemSelected.nombre_completo}</strong>?`"
         text-confirm-button="Si, Eliminar"
         color-confirm-button="error"
         action="DELETE"
         :dispatch="'personsModule/delete'"
         :payload="itemSelected"
-        catch-message="Error al eliminar el registro de persona."
-        success-message="Se eliminó el registro de persona correctamente."
+        catch-message="Error al eliminar el registro del elector."
+        success-message="Se eliminó el registro del elector correctamente."
         :dialog.sync="showConfirmDelete"
         @success="deleted"
         @cancel="itemSelected = null"

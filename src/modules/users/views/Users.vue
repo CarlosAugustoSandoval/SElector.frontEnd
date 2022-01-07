@@ -13,7 +13,7 @@
           <v-btn
               color="primary"
               depressed
-              small
+              :small="!!$vuetify.breakpoint.xsOnly"
               :fab="$vuetify.breakpoint.xsOnly"
               @click.stop="createItem"
           >

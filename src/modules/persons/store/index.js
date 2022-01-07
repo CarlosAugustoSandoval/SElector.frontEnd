@@ -52,11 +52,11 @@ const actions = {
         }
         return await db.persons[flagEdit ? 'put' : 'add'](person)
             .then(() => {
-                context.commit('SET_SNACKBAR', { message: `La persona se ${flagEdit ? 'actualizó' : 'registró'} correctamente.` }, {root: true})
+                context.commit('SET_SNACKBAR', { message: `El elector se ${flagEdit ? 'actualizó' : 'registró'} correctamente.` }, {root: true})
                 return true
             })
             .catch(() => {
-                context.commit('SET_SNACKBAR', { message: `Error al ${flagEdit ? 'actualizar' : 'registrar'} la persona.` }, {root: true})
+                context.commit('SET_SNACKBAR', { message: `Error al ${flagEdit ? 'actualizar' : 'registrar'} el elector.` }, {root: true})
                 return false
             })
     },
@@ -70,11 +70,11 @@ const actions = {
         }
         return await db.persons['put'](person)
             .then(() => {
-                context.commit('SET_SNACKBAR', { message: `El registro de la persona eliminó correctamente.` }, {root: true})
+                context.commit('SET_SNACKBAR', { message: `El registro del elector se eliminó correctamente.` }, {root: true})
                 return true
             })
             .catch(() => {
-                context.commit('SET_SNACKBAR', { message: `Error al eliminar el registro de la persona.` }, {root: true})
+                context.commit('SET_SNACKBAR', { message: `Error al eliminar el registro del elector.` }, {root: true})
                 return false
             })
     },
@@ -92,13 +92,13 @@ const actions = {
         })
     },
     async syncServerLote(context, persons = []) {
-        context.commit('SET_TEXT_LOADING', 'Resolviendo sincronización de personas.', {root: true})
+        context.commit('SET_TEXT_LOADING', 'Resolviendo sincronización de electores.', {root: true})
         const unsyncPersons = persons.length ? persons : await context.dispatch('getUnsyncPersons')
         console.log('unsyncPersons', unsyncPersons.length)
         if (unsyncPersons.length) {
             let rowsFailed = 0
             for (var i = 0; i <= unsyncPersons.length - 1; i++) {
-                context.commit('SET_TEXT_LOADING', `Sincronizando persona ${i} de ${unsyncPersons.length}`, {root: true})
+                context.commit('SET_TEXT_LOADING', `Sincronizando elector ${i} de ${unsyncPersons.length}`, {root: true})
                 context.commit('SET_PERCENT_LOADING', (i / unsyncPersons.length) * 100, {root: true})
                 const unsyncPerson = unsyncPersons[i]
                 const count = await context.dispatch('syncServer', unsyncPerson) ? 0 : 1
@@ -130,7 +130,7 @@ const actions = {
     //         }
     //         person.nombre_completo = [person.nombre1, person.nombre2, person.apellido1, person.apellido2].filter(x => x).join(' ')
     //         context.commit(person.uuid ? 'SET_EDIT_PERSON' : 'SET_ADD_PERSON', person)
-    //         context.commit('SET_SNACKBAR', {message: `El registro de la persona se ${flagEdit ? 'actualizó' : 'registró'} correctamente.`}, {root: true})
+    //         context.commit('SET_SNACKBAR', {message: `El registro del elector se ${flagEdit ? 'actualizó' : 'registró'} correctamente.`}, {root: true})
     //         console.log('person 1 ', person)
     //         if (navigator.onLine) {
     //             const saveServer = await context.dispatch('syncServer', person)
