@@ -20,6 +20,11 @@ if (process.env.NODE_ENV === 'production') {
       console.log('Content has been cached for offline use.')
     },
     updatefound () {
+      window.caches.keys().then(async names => {
+        for (let name of names) {
+          await window.caches.delete(name)
+        }
+      })
       console.log('New content is downloading.')
     },
     updated (registration) {

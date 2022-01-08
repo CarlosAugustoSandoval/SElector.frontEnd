@@ -34,11 +34,6 @@ export default {
   },
   methods: {
     updateChange() {
-      window.caches.keys().then(async names => {
-        for (let name of names) {
-          await window.caches.delete(name)
-        }
-      })
       this.$store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
       setTimeout(() => {
         location.reload(true)
