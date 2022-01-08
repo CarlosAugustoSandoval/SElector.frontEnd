@@ -25,6 +25,7 @@
 
 
         <c-tooltip
+            v-if="permissions.create"
             left
             tooltip="Crear elector"
             :disabled="$vuetify.breakpoint.smAndUp"
@@ -166,9 +167,9 @@
           </template>
           <template v-slot:item.options="{ item }">
             <options-buttons
-                edit-button
+                :edit-button="permissions.edit"
                 @edit="editItem(item)"
-                delete-button
+                :delete-button="permissions.delete"
                 @delete="deleteItem(item)"
                 top
             >
@@ -264,6 +265,11 @@ export default {
       },
     ]
   }),
+  computed: {
+    permissions () {
+      return store.getters['authModule/permissionsByModule']('electores')
+    }
+  },
   mounted() {
     if (this.isOnline) this.getUnsyncPersons()
   },

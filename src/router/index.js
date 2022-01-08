@@ -43,7 +43,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requireAuth)) {
         if (!store.state.authModule.access_token) {
             next({ name: 'Login' })
-        } else if (to.name === 'Home' || (await store.getters['authModule/permissionByName'](to.meta.permission))) {
+        } else if (!to.meta.permission || (await store.getters['authModule/permissionByName'](to.meta.permission))) {
             next()
         } else {
             setTimeout(() => {

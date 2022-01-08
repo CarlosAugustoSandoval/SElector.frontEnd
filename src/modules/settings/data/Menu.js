@@ -9,6 +9,7 @@ const Menu =[
             icon: 'mdi-home',
             color: 'primary',
             module: 'Main',
+            group: '',
             requireAuth: true,
             permission: null,
             visible: true
@@ -25,19 +26,10 @@ const Menu =[
             icon: 'mdi-account-group',
             color: 'green',
             module: 'Electores',
+            group: '',
             requireAuth: true,
-            permission: null,
-            // permission: 'usuarios.inicio',
+            permission: 'electores.index',
             visible: true
-        }
-    },
-    {
-        type: 'subheader',
-        meta: {
-            title: 'Administrativo',
-            icon: 'mdi-cog',
-            module: 'Admin',
-            permission: null
         }
     },
     {
@@ -50,9 +42,9 @@ const Menu =[
             icon: 'mdi-account-multiple',
             color: 'red',
             module: 'Users',
+            group: 'Administrativo',
             requireAuth: true,
-            permission: null,
-            // permission: 'usuarios.inicio',
+            permission: 'users.index',
             visible: true
         }
     },
@@ -66,9 +58,9 @@ const Menu =[
             icon: 'mdi-account-switch',
             color: 'indigo',
             module: 'Roles',
+            group: 'Administrativo',
             requireAuth: true,
-            permission: null,
-            // permission: 'usuarios.inicio',
+            permission: 'roles.index',
             visible: true
         }
     }
