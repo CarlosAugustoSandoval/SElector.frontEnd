@@ -45,6 +45,9 @@ const mutations = {
     },
     SET_OFF_RELOAD_FIREBASE (state) {
         state.reloadAplication = false
+        setTimeout(() => {
+            location.reload(true)
+        }, 1000)
     }
 }
 
