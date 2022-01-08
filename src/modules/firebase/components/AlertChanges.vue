@@ -40,7 +40,9 @@ export default {
         }
       })
       this.$store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
-      location.reload()
+      setTimeout(() => {
+        location.reload(true)
+      }, 1000)
     }
   }
 }
