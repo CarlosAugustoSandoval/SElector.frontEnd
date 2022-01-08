@@ -1,11 +1,10 @@
 <template>
   <v-app>
+    <alert-changes/>
+    <alert-install/>
     <router-view/>
     <snackbar/>
-    <Footer>
-      <alert-changes/>
-      <alert-install/>
-    </Footer>
+    <Footer/>
   </v-app>
 </template>
 
@@ -13,7 +12,7 @@
 import Footer from '@/components/Footer'
 import snackbar from '@/components/snackbar/components/Snackbar'
 import AlertInstall from '@/components/AlertInstall'
-import AlertChanges from '@/components/AlertChanges'
+import AlertChanges from '@/modules/firebase/components/AlertChanges'
 export default {
   name: 'App',
   components: {
@@ -38,14 +37,6 @@ export default {
       },
       immediate: true
     }
-  },
-  created() {
-    console.log('created app')
-  },
-  mounted() {
-    setTimeout(() => {
-      console.log('mounted app 500', caches)
-    }, 500)
   }
 }
 </script>

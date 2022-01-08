@@ -24,12 +24,6 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
-      window.caches.keys().then(async names => {
-        for (let name of names) {
-          await window.caches.delete(name)
-          console.log('deleted => ', name)
-        }
-      })
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')

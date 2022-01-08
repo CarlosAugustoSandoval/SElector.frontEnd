@@ -23,6 +23,7 @@ export default {
   },
   async beforeCreate() {
     await store.dispatch('authModule/getUser')
+    store.dispatch('firebaseModule/getReloadFirebase')
   }
 }
 </script>

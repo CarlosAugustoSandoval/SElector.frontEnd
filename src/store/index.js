@@ -5,6 +5,7 @@ import dataModule from '@/data/store'
 import authModule from '@/modules/auth/store'
 import settingsModule from '@/modules/settings/store'
 import personsModule from '@/modules/persons/store'
+import firebaseModule from '@/modules/firebase/store'
 import snackbar from '@/components/snackbar/store'
 import loading from '@/components/globalComponents/loading/store'
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     personsModule,
     snackbar,
     loading,
-    dataRowsModule
+    dataRowsModule,
+    firebaseModule
   },
   plugins: [persist.plugin]
 })

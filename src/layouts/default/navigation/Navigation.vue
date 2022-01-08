@@ -34,6 +34,29 @@
         </v-list-item>
       </template>
     </v-list>
+    <template
+        v-if="user && user.id === 1"
+        v-slot:append
+    >
+      <div class="pa-2">
+        <c-tooltip
+            right
+            tooltip="Lanzamiento de alerta de actualización para todos los usuarios."
+        >
+          <v-btn
+              dark
+              block
+              color="red"
+              @click="setAlerta"
+              :disabled="isOffline"
+              :loading="loadingAlerta"
+          >
+            <v-icon dark class="mr-1">mdi-restore-alert</v-icon>
+            Actualización
+          </v-btn>
+        </c-tooltip>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -42,6 +65,9 @@ import Menu from '@/modules/settings/data/Menu'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Navigation',
+  data: () => ({
+    loadingAlerta: false
+  }),
   computed: {
     ...mapGetters('authModule',['permissions']),
     menus () {
@@ -72,6 +98,14 @@ export default {
       set (val) {
         this.$store.commit('settingsModule/SET_NAVIGATION_DRAWER', val)
       }
+    }
+  },
+  methods: {
+    setAlerta() {
+      this.loadingAlerta = true
+      this.$store.dispatch('firebaseModule/setVersionFirebase').then(() => {
+        this.loadingAlerta = false
+      })
     }
   }
 }

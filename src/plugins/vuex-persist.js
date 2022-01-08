@@ -7,6 +7,7 @@ export default new VuexPersistence({
         'authModule',
         'settingsModule',
         'personsModule',
-        'dataRowsModule'
+        'dataRowsModule',
+        'firebaseModule'
     ]
 })

@@ -1,20 +1,20 @@
 <template>
   <v-alert
-    tile
-    dense
-    dark
-    dismissible
-    colored-border
-    v-model="showInstall"
-    style="width: 100%"
-    class="ma-0"
-    color="primary lighten-2"
-    border="left"
-    icon="mdi-application-import"
+      id="alert-install"
+      tile
+      dense
+      dark
+      dismissible
+      colored-border
+      v-model="showInstall"
+      class="ma-0"
+      color="primary lighten-2"
+      border="left"
+      icon="mdi-application-import"
   >
     <a
-      class="white--text"
-      @click.prevent="install"
+        class="white--text"
+        @click.prevent="install"
     >Instalar en el dispositivo
     </a>
   </v-alert>
@@ -27,7 +27,7 @@ export default {
   data: () => ({
     showInstall: false
   }),
-  created () {
+  created() {
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault()
       installEvent = e
@@ -35,7 +35,7 @@ export default {
     })
   },
   methods: {
-    install () {
+    install() {
       this.showInstall = false
       installEvent.prompt()
       installEvent.userChoice.then(() => {
@@ -45,3 +45,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#alert-install {
+  width: 100% !important;
+  z-index: 209 !important;
+  position: absolute !important;
+  bottom: 0;
+}
+</style>

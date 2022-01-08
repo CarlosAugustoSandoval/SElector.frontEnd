@@ -10,7 +10,7 @@
     <template v-slot:activator="{on}">
       <div
           v-on="on"
-          style="display:inline-block !important; margin: auto !important;"
+          style="margin: auto !important;"
       >
         <slot/>
       </div>
