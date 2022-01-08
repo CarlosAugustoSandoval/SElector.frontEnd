@@ -52,7 +52,7 @@
               :loading="loadingAlerta"
           >
             <v-icon dark class="mr-1">mdi-restore-alert</v-icon>
-            Actualización a
+            Actualización
           </v-btn>
         </c-tooltip>
       </div>
