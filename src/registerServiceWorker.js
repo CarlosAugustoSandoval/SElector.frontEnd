@@ -23,25 +23,18 @@ if (process.env.NODE_ENV === 'production') {
     updatefound () {
       store.commit('firebaseModule/SET_UPDATE_LOADER')
       console.log('New content is downloading.')
-      console.log('cargando cambios.')
       window.caches.keys().then(async names => {
         for (let name of names) {
-          console.log('cargando cambios.')
           await window.caches.delete(name)
         }
       })
-      console.log('cargando cambios.')
       store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE', true)
-      console.log('cargando cambios.')
     },
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
       setTimeout(() => {
-        console.log('cargando cambios extra.')
-        if (store.state.firebaseModule.reloadAplication) {
-          store.commit('firebaseModule/SET_UPDATE_LOADER', false)
+        if (store.state.firebaseModule.reloadAplication)
           store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
-        }
       }, 5000)
     },
     offline () {

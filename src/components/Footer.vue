@@ -10,7 +10,7 @@
         class="white--text"
         cols="12"
     >
-      <span>© {{ new Date().getFullYear() }} — SElector</span>
+      <span>© {{ new Date().getFullYear() }} — SElectorPlus</span>
     </v-col>
     <v-alert
         v-if="isOffline"
