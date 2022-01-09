@@ -26,10 +26,12 @@ if (process.env.NODE_ENV === 'production') {
         }
       })
       console.log('New content is downloading.')
+      setTimeout(() => {
+        store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
+      }, 1000)
     },
     updated (registration) {
       console.log('New content is available; please refresh.', registration)
-      store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')
