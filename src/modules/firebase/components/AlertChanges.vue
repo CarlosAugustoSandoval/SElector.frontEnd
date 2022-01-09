@@ -16,7 +16,7 @@
         class="white--text"
         @click.prevent="updateChange"
     >
-      Actualización Disponible ahora
+      Actualización Disponible
     </a>
   </v-alert>
 </template>
