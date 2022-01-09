@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <update-loader/>
     <alert-changes/>
     <alert-install/>
     <router-view/>
@@ -13,9 +14,11 @@ import Footer from '@/components/Footer'
 import snackbar from '@/components/snackbar/components/Snackbar'
 import AlertInstall from '@/components/AlertInstall'
 import AlertChanges from '@/modules/firebase/components/AlertChanges'
+import UpdateLoader from '@/modules/firebase/components/UpdateLoader'
 export default {
   name: 'App',
   components: {
+    UpdateLoader,
     snackbar,
     Footer,
     AlertInstall,

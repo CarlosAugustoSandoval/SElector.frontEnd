@@ -20,6 +20,7 @@ if (process.env.NODE_ENV === 'production') {
       console.log('Content has been cached for offline use.')
     },
     updatefound () {
+      store.commit('firebaseModule/SET_UPDATE_LOADER')
       console.log('New content is downloading.')
       console.log('cargando cambios.')
       window.caches.keys().then(async names => {
@@ -36,9 +37,11 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is available; please refresh.', registration)
       setTimeout(() => {
         console.log('cargando cambios extra.')
+        if (store.state.firebaseModule.reloadAplication) {
+          store.commit('firebaseModule/SET_UPDATE_LOADER', false)
+          store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
+        }
       }, 5000)
-      if (store.state.firebaseModule.reloadAplication)
-        store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')

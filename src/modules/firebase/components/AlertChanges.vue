@@ -26,9 +26,6 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'AlertChanges',
-  data: () => ({
-    showChanges: false
-  }),
   computed: {
     ...mapState('firebaseModule', ['reloadAplication']),
   },

@@ -2,7 +2,8 @@ import {db, fire} from '../plugins/firebase'
 // state
 const state = {
     versionFirebase: null,
-    reloadAplication: false
+    reloadAplication: false,
+    showUpdateLoader: false
 }
 
 // getters
@@ -48,6 +49,9 @@ const mutations = {
         if(!force) {
             location.reload(true)
         }
+    },
+    SET_UPDATE_LOADER (state, show = true) {
+        state.showUpdateLoader = show
     }
 }
 
