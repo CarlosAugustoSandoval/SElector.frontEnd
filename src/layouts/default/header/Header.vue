@@ -7,7 +7,7 @@
       dark
   >
     <v-toolbar-title class="align-center d-flex">
-      <span class="title mr-2">SElectorPlus++</span>
+      <span class="title mr-2">SElectorPlus</span>
       <btn-menu/>
     </v-toolbar-title>
     <v-spacer />
