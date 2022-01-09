@@ -16,7 +16,7 @@
         class="white--text"
         @click.prevent="updateChange"
     >
-      Actualización Disponible
+      Actualización Disponible ahora
     </a>
   </v-alert>
 </template>
@@ -44,7 +44,7 @@ export default {
   #alert-changes {
     width: 100% !important;
     z-index: 210 !important;
-    position: absolute !important;
-    top: 0;
+    position: fixed !important;
+    bottom: 0;
   }
 </style>

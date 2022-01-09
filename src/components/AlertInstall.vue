@@ -50,7 +50,7 @@ export default {
 #alert-install {
   width: 100% !important;
   z-index: 209 !important;
-  position: absolute !important;
-  top: 0;
+  position: fixed !important;
+  bottom: 0;
 }
 </style>

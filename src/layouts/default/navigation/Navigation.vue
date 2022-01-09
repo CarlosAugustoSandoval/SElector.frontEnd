@@ -1,10 +1,9 @@
 <template>
   <v-navigation-drawer
-      app
-      absolute
-      style="z-index: 2 !important;"
+      style="z-index: 4 !important;"
       :style="`padding-top: ${$vuetify.breakpoint.mdAndUp ? '74' : '66'}px`"
       v-model="navigationDrawer"
+      app
   >
     <v-list
         dense
