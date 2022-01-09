@@ -43,11 +43,11 @@ const mutations = {
             state.reloadAplication = true
         }
     },
-    SET_OFF_RELOAD_FIREBASE (state) {
-        state.reloadAplication = false
-        setTimeout(() => {
+    SET_OFF_RELOAD_FIREBASE (state, force = false) {
+        state.reloadAplication = force
+        if(!force) {
             location.reload(true)
-        }, 1000)
+        }
     }
 }
 
