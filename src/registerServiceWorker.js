@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
       updateViaCache: 'all'
     },
     ready () {
+      store.commit('firebaseModule/SET_UPDATE_LOADER', false)
       console.log(
         'App is being served from cache by a service worker.\n' +
         'For more details, visit https://goo.gl/AFskqB'
