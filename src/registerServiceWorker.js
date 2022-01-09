@@ -34,8 +34,8 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is available; please refresh.', registration)
       setTimeout(() => {
         if (store.state.firebaseModule.reloadAplication) {
-          store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
           store.commit('firebaseModule/SET_UPDATE_LOADER', false)
+          store.commit('firebaseModule/SET_OFF_RELOAD_FIREBASE')
         }
       }, 5000)
     },
