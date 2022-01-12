@@ -24,7 +24,7 @@ const actions = {
                 version: fire.firestore.FieldValue.increment(1)
             })
                 .then(() => {
-                    context.commit('SET_SNACKBAR', { color: 'success', message: 'Alerta de cambios lanzada correctamente.' }, { root: true })
+                    context.commit('SET_SNACKBAR', { message: 'Alerta de cambios lanzada correctamente.' }, { root: true })
                     resolve(true)
                 })
                 .catch(e => {

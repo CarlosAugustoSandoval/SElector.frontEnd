@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import moment from 'moment'
-import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-// eslint-disable-next-line camelcase
-import { required, email, numeric } from 'vee-validate/dist/rules'
+import { extend } from 'vee-validate'
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { required, email, numeric, is_not, confirmed } from 'vee-validate/dist/rules'
+
 Vue.use({
   install (Vue) {
     Vue.component('ValidationProvider', ValidationProvider)
@@ -30,9 +31,9 @@ extend('dateValid', {
 extend('mindate', {
   params: ['minimo'],
   validate(value, { minimo }) {
-    let newValue = Vue.prototype.moment(value, 'DD/MM/YYYY').format('YYYY-MM-DD')
-    let newMinimo = Vue.prototype.moment(minimo, 'YYYY-MM-DD')
-    return Vue.prototype.moment(newValue).valueOf() >= Vue.prototype.moment(newMinimo).valueOf()
+    let newValue = moment(value, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    let newMinimo = moment(minimo, 'YYYY-MM-DD')
+    return moment(newValue).valueOf() >= moment(newMinimo).valueOf()
   },
   message: 'El campo {_field_} debe ser mayor o igual a {minimo}'
 })
@@ -40,9 +41,9 @@ extend('mindate', {
 extend('maxdate', {
   params: ['maximo'],
   validate(value, { maximo }) {
-    let newValue = Vue.prototype.moment(value, 'DD/MM/YYYY').format('YYYY-MM-DD')
-    let newMaximo = Vue.prototype.moment(maximo, 'YYYY-MM-DD')
-    return Vue.prototype.moment(newValue).valueOf() <= Vue.prototype.moment(newMaximo).valueOf()
+    let newValue = moment(value, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    let newMaximo = moment(maximo, 'YYYY-MM-DD')
+    return moment(newValue).valueOf() <= moment(newMaximo).valueOf()
   },
   message: 'El campo {_field_} debe ser menor o igual a {maximo}'
 })
@@ -75,9 +76,28 @@ extend('maxlength', {
   message: 'El campo {_field_} debe tener como maximo {length} caracteres'
 })
 
-extend('direccion', {
+extend('address', {
   validate(value) {
     return (isNaN(value) && value.trim().length > 5) || value > 0
   },
   message: 'El campo {_field_} no es un dato válido'
+})
+
+extend('is_not', {
+  ...is_not,
+  message: 'El campo {_field_} debe ser diferente de la contraseña actual'
+})
+
+extend('confirmed', {
+  ...confirmed,
+  message: 'El campo {_field_} no coincide con el campo a confirmar'
+})
+
+extend('regexPassword', {
+  params: ['password'],
+  validate(value, { password }) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_-])(?=.{8,})/;
+    return regex.test(password)
+  },
+  message: "La contraseña debe ser alfanumerica, debe contener mayusculas y minusculas y un caracter especial"
 })

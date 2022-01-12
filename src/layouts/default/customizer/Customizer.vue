@@ -27,8 +27,9 @@
         <v-list-item-subtitle class="caption white--text">{{ user.email }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <!---Theme color -->
-    <v-divider></v-divider>
+    <v-divider/>
+    <change-password/>
+    <v-divider/>
     <div class="px-4 py-4">
       <label class="white--text">Color Primario</label>
       <v-color-picker
@@ -67,8 +68,12 @@
 </template>
 
 <script>
+import ChangePassword from '@/modules/auth/components/ChangePassword'
 export default {
   name: 'Customizer',
+  components: {
+    ChangePassword
+  },
   data: () => ({
     loading: false,
     colorActive: null,

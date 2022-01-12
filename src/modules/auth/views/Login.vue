@@ -94,8 +94,8 @@
                   >
                     <c-text
                         v-model="email"
-                        label="Correo Electrónico"
-                        name="Correo Electrónico"
+                        label="Correo electrónico"
+                        name="Correo electrónico"
                         rules="required|email"
                         :dense="false"
                     />

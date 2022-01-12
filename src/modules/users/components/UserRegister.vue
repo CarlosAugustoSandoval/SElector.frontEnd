@@ -72,7 +72,7 @@ export default {
             : this.axios.post('users', this.item)
         request
             .then(({data}) => {
-              store.commit('SET_SNACKBAR', {color: 'success', message: `El usuario se ${this.item.id ? 'actualizó' : 'guardó'} correctamente.`})
+              store.commit('SET_SNACKBAR', {message: `El usuario se ${this.item.id ? 'actualizó' : 'guardó'} correctamente.`})
               this.$emit('saved',data ? !this.item.id ? data.user : data : null)
               this.close()
             })

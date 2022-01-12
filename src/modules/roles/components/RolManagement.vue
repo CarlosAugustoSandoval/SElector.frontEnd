@@ -209,7 +209,7 @@ export default {
             : this.axios.post('roles', this.item)
         request
             .then(({data}) => {
-              store.commit('SET_SNACKBAR', {color: 'success', message: `El rol se ${this.item.id ? 'actualizó' : 'creó'} correctamente.`})
+              store.commit('SET_SNACKBAR', {message: `El rol se ${this.item.id ? 'actualizó' : 'creó'} correctamente.`})
               this.saved(data ? !this.item.id ? data.role : data : null)
             })
             .catch(e => {

@@ -98,7 +98,7 @@ export default {
       default: null
     },
     rules: {
-      type: String,
+      type: [String, Object],
       default: null
     },
     readonly: {

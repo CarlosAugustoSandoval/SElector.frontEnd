@@ -184,7 +184,7 @@
 <!--                <c-text-->
 <!--                    v-model="item.direccion"-->
 <!--                    label="Dirección de residencia"-->
-<!--                    rules="required|minlength:6|direccion"-->
+<!--                    rules="required|minlength:6|address"-->
 <!--                    name="dirección de residencia"-->
 <!--                    upper-case-->
 <!--                    :disabled="identificacionVerificada < 1"-->

@@ -107,7 +107,7 @@ const actions = {
                     await db.persons['put'](unsyncPerson)
                         .catch(() => {
                             unsyncPerson.sincronizado = 0
-                            context.commit('SET_SNACKBAR', { message: `Error al actualizar el registro.` }, {root: true})
+                            context.commit('SET_SNACKBAR', { color: 'error', message: `Error al actualizar el registro.` }, {root: true})
                         })
                 }
                 rowsFailed = rowsFailed + count
