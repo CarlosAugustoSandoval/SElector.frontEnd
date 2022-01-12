@@ -10,7 +10,7 @@
       class="ma-0"
       color="warning lighten-2"
       border="left"
-      icon="mdi-application-import"
+      icon="mdi-download-box"
   >
     <a
         class="white--text"
