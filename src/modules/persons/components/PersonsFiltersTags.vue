@@ -6,10 +6,17 @@
         subtitle="Fecha de registro"
         @close="tags.filter_created_between = []"
     />
+    <c-chip
+        v-if="tags.user_id"
+        :title="userName"
+        subtitle="Usuario"
+        @close="tags.user_id = null"
+    />
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: 'PersonsFiltersTags',
   props: {
@@ -17,6 +24,12 @@ export default {
       type: Object,
       default: null
     }
+  },
+  computed: {
+    userName () {
+      return this.tags?.user_id && this.complementsFilters?.users.find(x => x.id === this.tags.user_id)?.name || ''
+    },
+    ...mapState('personsModule',['complementsFilters']),
   }
 }
 </script>

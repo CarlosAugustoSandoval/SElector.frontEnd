@@ -35,11 +35,13 @@
                 </v-subheader>
               </v-col>
               <v-col cols="12" sm="6">
-                <c-text
+                <c-identification-person
                     v-model="item.identificacion"
                     label="Identificación"
-                    rules="required"
+                    rules="required|numeric"
                     name="identificación"
+                    @responseItem="val => resultElector(val)"
+                    @keyup="identificacionVerificada = 0"
                 />
               </v-col>
               <v-col cols="12" sm="6">
@@ -51,7 +53,8 @@
                     name="sexo"
                     rules="required"
                     :column="!$vuetify.breakpoint.smAndUp"
-                    :readonly="identificacionVerificada < 1 || !!sexoAutomatico"
+                    :readonly="!!sexoAutomatico"
+                    :disabled="identificacionVerificada < 1"
                 />
               </v-col>
               <!--                    <v-col cols="12" sm="6">-->
@@ -281,15 +284,19 @@
 </template>
 
 <script>
-import modelPersona from '../models/Persona'
+import Person from '../models/Person'
 import {mapState} from 'vuex'
+import CIdentificationPerson from './CIdentificationPerson'
 
 export default {
   name: 'PersonRegister',
+  components: {
+    CIdentificationPerson
+  },
   data: () => ({
     loading: false,
     dialog: false,
-    identificacionVerificada: 1,
+    identificacionVerificada: 0,
     edadText: '',
     item: null
   }),
@@ -317,6 +324,12 @@ export default {
       },
       immediate: true
     },
+    'item.identificacion': {
+      handler() {
+        this.identificacionVerificada = 0
+      },
+      immediate: false
+    },
     'item.fecha_nacimiento': {
       handler(val) {
         if (this?.item) {
@@ -340,11 +353,14 @@ export default {
             })
       }
     },
-    open(item) {
+    async open(item) {
       if (item) {
-        this.item = this.clone(item)
+        this.item = await Person.create(item)
+        setTimeout(() => {
+          this.identificacionVerificada = 1
+        }, 400)
       } else {
-        this.item = this.clone(modelPersona)
+        this.item = Person.create()
       }
       this.dialog = true
     },
@@ -354,6 +370,13 @@ export default {
         this.loading = false
         this.item = null
       }, 400)
+    },
+    resultElector (elector) {
+      this.identificacionVerificada = 1
+      console.log('electorelector', elector)
+      if (elector) {
+        this.item = Person.create(elector)
+      }
     }
   }
 }

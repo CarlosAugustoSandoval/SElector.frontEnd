@@ -27,12 +27,7 @@
         :subtitle="subtitle"
         @close="dialog = false"
     >
-      <v-row
-          justify="end"
-          fill-height
-      >
-        <slot name="filters"/>
-      </v-row>
+      <slot name="filters"/>
     </c-card>
   </v-dialog>
 </template>

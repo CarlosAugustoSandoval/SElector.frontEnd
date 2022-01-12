@@ -4,7 +4,7 @@ import {mapGetters, mapState} from 'vuex'
 
 Vue.mixin({
   data: () => ({
-    esMovil: false
+    isMovil: false
   }),
   computed: {
     ...mapState('authModule',['user']),
@@ -14,7 +14,7 @@ Vue.mixin({
   watch: {
     '$vuetify.breakpoint.name': {
       handler (val) {
-        val && (this.esMovil = !!(navigator.userAgent.match(/Android/i) ||
+        val && (this.isMovil = !!(navigator.userAgent.match(/Android/i) ||
           navigator.userAgent.match(/webOS/i) ||
           navigator.userAgent.match(/iPhone/i) ||
           navigator.userAgent.match(/iPod/i) ||

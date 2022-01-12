@@ -96,32 +96,38 @@
             <v-list-item class="pa-0">
               <v-list-item-content class="py-1">
                 <v-list-item-title v-if="item.celular || item.celular2">
-                  <v-icon size="16">mdi-cellphone</v-icon>
+                  <v-icon size="16">mdi-cellphone-check</v-icon>
                   <template v-if="item.celular">
                     <c-tooltip
                         top
                         tooltip="Principal"
                     >
-                      <a :href="`tel:${item.celular}`">
+                      <a
+                          :href="`tel:${item.celular}`"
+                      >
                         {{ item.celular }}
                       </a>
                     </c-tooltip>
                   </template>
-                  <template v-if="item.celular && item.celular2"> |</template>
+                  <template v-if="item.celular && item.celular2"> | </template>
                   <template v-if="item.celular2">
                     <c-tooltip
                         top
                         tooltip="Opcional"
                     >
-                      <a :href="`tel:${item.celular2}`">
+                      <a
+                          :href="`tel:${item.celular2}`"
+                      >
                         {{ item.celular2 }}
                       </a>
                     </c-tooltip>
                   </template>
                 </v-list-item-title>
                 <v-list-item-subtitle v-if="item.email">
-                  <a :href="`mailto:${item.email}`">
-                    <v-icon size="16">mdi-email</v-icon>
+                  <v-icon size="16">mdi-email</v-icon>
+                  <a
+                      :href="`mailto:${item.email}`"
+                  >
                     {{ item.email }}
                   </a>
                 </v-list-item-subtitle>

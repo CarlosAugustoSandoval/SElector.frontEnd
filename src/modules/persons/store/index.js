@@ -5,7 +5,8 @@ import db from '@/db/db'
 
 // state
 const state = {
-    persons: []
+    persons: [],
+    complementsFilters: null
 }
 
 // getters
@@ -117,6 +118,28 @@ const actions = {
                 message: `El proceso de sincronización ha terminado${rowsFailed === 0 ? '' : ` con ${rowsFailed} ${rowsFailed === 1 ? 'error' : 'errores'}`}`
             }, {root: true})
         }
+    },
+    async getComplementsFilters(context) {
+        Vue.axios.get('electores/data-filters')
+            .then(response => {
+                context.commit('SET_COMPLEMENTS_FILTERS', response.data)
+            })
+            .catch(error => {
+                context.commit('SET_SNACKBAR', { color: 'error', message: `Error ${error?.response?.status || ''} al recuperar los datos de filtros.`, error: error }, { root: true })
+            })
+    },
+    async searchElectorServer(context, identification) {
+        return await new Promise(resolve => {
+            Vue.axios.get(`electores/by-identificacion/${identification}`)
+                .then(response => {
+                    console.log('response elector', response)
+                    resolve(response.data || null)
+                })
+                .catch(error => {
+                    context.commit('SET_SNACKBAR', { color: 'error', message: `Error ${error?.response?.status || ''} al hacer la búsqueda del afiliado.`, error: error }, { root: true })
+                    resolve(null)
+                })
+        })
     }
     // async save(context, person) {
     //     // eslint-disable-next-line no-async-promise-executor
@@ -150,6 +173,9 @@ const actions = {
 
 // mutations
 const mutations = {
+    SET_COMPLEMENTS_FILTERS(state, data) {
+        state.complementsFilters = data
+    },
     SET_SYNC_PERSON(state, person) {
         const index = state.persons.findIndex(x => x.uuid === person.uuid)
         if (index > -1) {
