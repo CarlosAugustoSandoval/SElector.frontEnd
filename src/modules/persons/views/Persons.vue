@@ -51,6 +51,7 @@
         filters-title="Filtros de electores"
         filters-max-width="900"
         advance-filters
+        export-excel
         :initial-run="true"
     >
       <persons-filters slot="filters"/>

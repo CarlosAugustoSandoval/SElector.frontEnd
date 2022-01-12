@@ -49,8 +49,8 @@
     </v-row>
     <v-col
         cols="12"
-        md="8"
-        lg="6"
+        :md="exportExcel ? 10 : 8"
+        :lg="exportExcel ? 8 : 6"
         class="mx-auto"
     >
       <v-text-field
@@ -76,18 +76,22 @@
           </v-btn>
         </template>
         <template
-            v-if="advanceFilters && isOnline"
+            v-if="(advanceFilters || exportExcel) && isOnline"
             v-slot:append-outer
         >
-                    <c-row-filters
-                        :title="filtersTitle"
-                        :subtitle="filtersSubtitle"
-                        :max-width="filtersMaxWidth"
-                    >
-                      <template v-slot:filters>
-                        <slot name="filters"/>
-                      </template>
-                    </c-row-filters>
+          <c-row-filters
+              :title="filtersTitle"
+              :subtitle="filtersSubtitle"
+              :max-width="filtersMaxWidth"
+          >
+            <template v-slot:filters>
+              <slot name="filters"/>
+            </template>
+          </c-row-filters>
+          <export-excel
+              v-if="items.length"
+              :route="urlStringExport"
+          />
         </template>
       </v-text-field>
     </v-col>
@@ -155,10 +159,15 @@
 import store from '@/store'
 import RowsManager from '../data/RowsManager'
 import CRowFilters from './CRowFilters'
+import ExportExcel from './ExportExcel'
 
 export default {
   name: 'CRows',
   props: {
+    exportExcel: {
+      type: Boolean,
+      default: false
+    },
     advanceFilters: {
       type: Boolean,
       default: false
@@ -239,6 +248,7 @@ export default {
     },
   },
   components: {
+    ExportExcel,
     CRowFilters
   },
   computed: {
@@ -248,7 +258,7 @@ export default {
   },
   watch: {
     isOffline: {
-      handler (val) {
+      handler(val) {
         if (val) this.reloadCurrentPage()
       },
       immediate: true
@@ -293,6 +303,7 @@ export default {
   },
   data: () => ({
     debounce: require('lodash/debounce'),
+    urlStringExport: null,
     constDataRow: null,
     sortString: '',
     filterString: '',
@@ -360,7 +371,7 @@ export default {
         try {
           this.loading = true
           this.activePetition = false
-          if(this.isOnline) {
+          if (this.isOnline) {
             const urlString = await this.makeUrl()
             const {data} = await this.axios.get(urlString)
 
@@ -380,7 +391,7 @@ export default {
                 })
           }
         } catch (e) {
-          store.commit('SET_SNACKBAR',{
+          store.commit('SET_SNACKBAR', {
             color: 'error',
             message: 'Error al hacer la busqueda de registros',
             error: e
@@ -395,6 +406,7 @@ export default {
     async makeUrl() {
       const filtersString = this.advanceFilters ? this.stateDataRow.filters ? `&${this.stateDataRow.filters}` : '' : ''
       const sortString = ''
+      this.urlStringExport = `${this.route}${this.route.indexOf('?') > -1 ? '&' : '?'}filter[search]=${!this.searchRows ? '' : this.searchRows}${filtersString}${sortString}&excel=1`
       return `${this.route}${this.route.indexOf('?') > -1 ? '&' : '?'}per_page=${this.dataPagination.itemsPerPage}${filtersString}${sortString}&page=${this.dataPagination.currentPage}&filter[search]=${!this.searchRows ? '' : this.searchRows}`
     }
   }
