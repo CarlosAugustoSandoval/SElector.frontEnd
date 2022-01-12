@@ -22,6 +22,7 @@
         show-close-button
         header-background="primary"
         icon="mdi-tune"
+        class-container="pt-6"
         :loading.sync="loading"
         :title="title"
         :subtitle="subtitle"
