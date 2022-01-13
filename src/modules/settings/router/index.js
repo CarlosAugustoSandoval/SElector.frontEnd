@@ -1,9 +1,24 @@
-import Menu from '@/modules/settings/data/Menu'
-
 const routes = {
     path: '/',
     redirect: { name: 'Home' },
     component: () => import('@/layouts/default/Layout'),
-    children: Menu.filter(menu => menu.meta?.module === 'Main')
+    children: [
+        {
+            name: 'Home',
+            path: '/home',
+            component: () => import('@/views/Home'),
+            meta: {
+                title: 'Inicio',
+                subtitle: '',
+                icon: 'mdi-home',
+                color: 'primary',
+                module: 'Main',
+                group: '',
+                requireAuth: true,
+                permission: null,
+                visible: true
+            }
+        }
+    ]
 }
 export default routes
