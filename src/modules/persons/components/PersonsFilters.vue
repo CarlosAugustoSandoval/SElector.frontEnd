@@ -14,7 +14,11 @@
           show-select-periods
       />
     </v-col>
-    <v-col cols="12" md="6">
+    <v-col
+        v-if="permissions['view-all']"
+        cols="12"
+        md="6"
+    >
       <c-select-complete
           v-model="model.user_id"
           label="Usuario"
@@ -39,6 +43,9 @@ export default {
     string: ''
   }),
   computed: {
+    permissions () {
+      return store.getters['authModule/permissionsByModule']('electores')
+    },
     ...mapState('personsModule',['complementsFilters']),
   },
   created() {
