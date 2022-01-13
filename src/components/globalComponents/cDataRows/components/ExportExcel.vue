@@ -1,21 +1,19 @@
 <template>
   <c-tooltip
-      left
+      top
       tooltip="Exportar"
-      :disabled="$vuetify.breakpoint.smAndUp"
+      :disabled="$vuetify.breakpoint.mdAndUp"
   >
     <v-btn
         dark
         color="green"
         class="ml-2"
         depressed
-        :small="!!$vuetify.breakpoint.xsOnly"
-        :fab="$vuetify.breakpoint.xsOnly"
         :loading="loading"
         @click="downloadExel"
     >
       <v-icon>mdi-file-excel</v-icon>
-      {{$vuetify.breakpoint.smAndUp ? 'Exportar' : ''}}
+      {{$vuetify.breakpoint.mdAndUp ? 'Exportar' : ''}}
     </v-btn>
   </c-tooltip>
 </template>

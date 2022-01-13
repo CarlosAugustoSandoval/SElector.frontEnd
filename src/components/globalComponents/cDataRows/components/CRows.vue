@@ -89,7 +89,7 @@
             </template>
           </c-row-filters>
           <export-excel
-              v-if="items.length"
+              v-if="exportExcel && items.length"
               :route="urlStringExport"
           />
         </template>
