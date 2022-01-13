@@ -1,6 +1,6 @@
 <template>
   <v-alert
-      v-if="reloadAplication"
+      v-if="reloadAplication && isOnline"
       id="alert-changes"
       tile
       dense

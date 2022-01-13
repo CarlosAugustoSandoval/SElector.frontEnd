@@ -21,9 +21,11 @@ export default {
     Header,
     Customizer
   },
-  async beforeCreate() {
-    await store.dispatch('authModule/getUser')
-    store.dispatch('firebaseModule/getReloadFirebase')
+  mounted() {
+    if (this.isOnline) {
+      store.dispatch('authModule/getUser')
+      store.dispatch('firebaseModule/getReloadFirebase')
+    }
   }
 }
 </script>
