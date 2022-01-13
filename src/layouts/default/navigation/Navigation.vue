@@ -38,22 +38,23 @@
         v-slot:append
     >
       <div class="pa-2">
-        <c-tooltip
-            right
-            tooltip="Lanzamiento de alerta de actualización para todos los usuarios."
+        <v-btn
+            dark
+            block
+            color="red"
+            @click="setAlerta"
+            :disabled="isOffline"
+            :loading="loadingAlerta"
         >
-          <v-btn
-              dark
-              block
-              color="red"
-              @click="setAlerta"
-              :disabled="isOffline"
-              :loading="loadingAlerta"
+          <v-icon dark class="mr-1">mdi-restore-alert</v-icon>
+          Actualización
+          <c-tooltip
+              right
+              tooltip="Lanzamiento de alerta de actualización para todos los usuarios."
           >
-            <v-icon dark class="mr-1">mdi-restore-alert</v-icon>
-            Actualización
-          </v-btn>
-        </c-tooltip>
+            <v-icon dark>mdi-information</v-icon>
+          </c-tooltip>
+        </v-btn>
       </div>
     </template>
   </v-navigation-drawer>

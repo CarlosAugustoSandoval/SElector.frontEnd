@@ -4,9 +4,9 @@ import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`,  {
-    registrationOptions: {
-      updateViaCache: 'all'
-    },
+    // registrationOptions: {
+    //   updateViaCache: 'all'
+    // },
     ready () {
       store.commit('firebaseModule/SET_UPDATE_LOADER', false)
       console.log(
