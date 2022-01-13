@@ -6,6 +6,7 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-list-item
+          :disabled="!isOnline"
           v-bind="attrs"
           v-on="on"
       >
