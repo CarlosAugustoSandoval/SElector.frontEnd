@@ -64,7 +64,7 @@ export default {
     makeRouteFilter () {
       let string = ''
       if (this.model.filter_created_between.length) string = string + `filter[filter_created_between]=${this.model.filter_created_between.join(',')}`
-      if(this.model.user_id) string = string + `filter[user_id]=${this.model.user_id}`
+      if(this.model.user_id) string = `${string}${string ? '&' : ''}filter[user_id]=${this.model.user_id}`
       this.filterRows(string, 'rowsPersons')
     }
   }
