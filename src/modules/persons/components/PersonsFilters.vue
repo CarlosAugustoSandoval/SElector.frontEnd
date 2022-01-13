@@ -1,7 +1,6 @@
 <template>
   <v-row
       justify="end"
-      fill-height
   >
     <v-col
         cols=" 12"
