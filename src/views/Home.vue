@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {BrowserPDF417CodeReader} from '@zxing/browser'
+import {BrowserPDF417Reader} from '@zxing/browser'
 import * as ZXingBrowser from '@zxing/browser'
 
 export default {
@@ -27,7 +27,7 @@ export default {
   }),
   async mounted() {
     if (this.user?.id === 1) {
-      const codeReader = new BrowserPDF417CodeReader()
+      const codeReader = new BrowserPDF417Reader()
       const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
 
 // choose your media device (webcam, frontal camera, back camera, etc.)
