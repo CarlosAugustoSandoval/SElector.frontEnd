@@ -89,8 +89,9 @@
             </template>
           </c-row-filters>
           <export-excel
-              v-if="exportExcel && items.length"
+              v-if="exportExcel && isOnline"
               :route="urlStringExport"
+              :count="(dataPagination && dataPagination.itemsLength) || null"
           />
         </template>
       </v-text-field>

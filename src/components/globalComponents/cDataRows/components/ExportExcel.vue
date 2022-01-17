@@ -1,10 +1,11 @@
 <template>
   <c-tooltip
       top
-      tooltip="Exportar"
+      :tooltip="`${count ? `Hay ${count} registro${count === 1 ? '' : 's'}${count > 0 && count <= limitCount ? ' para exportar.' : `, no es posible exportar, se supera el límite de ${limitCount} registros.`}`: 'No hay registros para exportar.' }`"
       :disabled="$vuetify.breakpoint.mdAndUp"
   >
     <v-btn
+        v-if="!(!count || (count <= 0 && count > limitCount))"
         dark
         color="green"
         class="ml-2"
@@ -26,10 +27,15 @@ export default {
     route: {
       type: String,
       default: ''
+    },
+    count: {
+      type: Number,
+      default: null
     }
   },
   data: () => ({
-    loading: false
+    loading: false,
+    limitCount: 50000
   }),
   methods: {
     downloadExel () {
