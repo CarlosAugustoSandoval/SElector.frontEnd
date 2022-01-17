@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {BrowserQRCodeReader} from '@zxing/browser'
+import {BrowserPDF417CodeReader} from '@zxing/browser'
 import * as ZXingBrowser from '@zxing/browser'
 
 export default {
@@ -19,14 +19,17 @@ export default {
     result: null,
     error: null,
     controls: null,
+    videoInputDevices: null,
   }),
   async mounted() {
     if (this.user?.id === 1) {
-      const codeReader = new BrowserQRCodeReader()
+      const codeReader = new BrowserPDF417CodeReader()
       const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
 
 // choose your media device (webcam, frontal camera, back camera, etc.)
-      const selectedDeviceId = videoInputDevices[0].deviceId;
+      console.log('videoInputDevices', videoInputDevices)
+      this.videoInputDevices = videoInputDevices
+      const selectedDeviceId = videoInputDevices[2].deviceId;
 
       console.log(`Started decode from camera with id ${selectedDeviceId}`);
 
