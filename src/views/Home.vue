@@ -1,14 +1,14 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home 2
+      Home 3
     </div>
     <div>a{{result}}</div>
     <div>b{{error}}</div>
     <div>c{{controls}}</div>
     <div>d{{videoInputDevices}}</div>
     <div id="test-area-qr-code-webcam">
-      <video></video>
+      <video/>
     </div>
   </v-container>
 </template>
@@ -53,7 +53,7 @@ export default {
       });
 
 // stops scanning after 20 seconds
-      setTimeout(() => controls.stop(), 20000)
+      setTimeout(() => controls.stop(), 50000)
     }
   }
 }
