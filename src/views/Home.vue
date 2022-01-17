@@ -7,6 +7,9 @@
     <div>b{{error}}</div>
     <div>c{{controls}}</div>
     <div>d{{videoInputDevices}}</div>
+    <div id="test-area-qr-code-webcam">
+      <video></video>
+    </div>
   </v-container>
 </template>
 
