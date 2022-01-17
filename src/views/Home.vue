@@ -3,9 +3,10 @@
     <div>
       Home
     </div>
-    <div>{{result}}</div>
-    <div>{{error}}</div>
-    <div>{{controls}}</div>
+    <div>a{{result}}</div>
+    <div>b{{error}}</div>
+    <div>c{{controls}}</div>
+    <div>d{{videoInputDevices}}</div>
   </v-container>
 </template>
 
@@ -29,7 +30,7 @@ export default {
 // choose your media device (webcam, frontal camera, back camera, etc.)
       console.log('videoInputDevices', videoInputDevices)
       this.videoInputDevices = videoInputDevices
-      const selectedDeviceId = videoInputDevices[2].deviceId;
+      const selectedDeviceId = videoInputDevices[1].deviceId;
 
       console.log(`Started decode from camera with id ${selectedDeviceId}`);
 
