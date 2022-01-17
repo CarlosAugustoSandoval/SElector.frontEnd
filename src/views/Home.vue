@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home
+      Home 1
     </div>
     <div>a{{result}}</div>
     <div>b{{error}}</div>
