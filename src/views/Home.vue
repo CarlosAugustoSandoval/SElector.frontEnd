@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home 1
+      Home 2
     </div>
     <div>a{{result}}</div>
     <div>b{{error}}</div>
@@ -33,7 +33,7 @@ export default {
 // choose your media device (webcam, frontal camera, back camera, etc.)
       console.log('videoInputDevices', videoInputDevices)
       this.videoInputDevices = videoInputDevices
-      const selectedDeviceId = videoInputDevices[0].deviceId;
+      const selectedDeviceId = videoInputDevices[1].deviceId;
 
       console.log(`Started decode from camera with id ${selectedDeviceId}`);
 
