@@ -3,6 +3,9 @@
     <div>
       Home
     </div>
+    <div>{{result}}</div>
+    <div>{{error}}</div>
+    <div>{{controls}}</div>
   </v-container>
 </template>
 
@@ -12,6 +15,11 @@ import * as ZXingBrowser from '@zxing/browser'
 
 export default {
   name: 'Home',
+  data: () => ({
+    result: null,
+    error: null,
+    controls: null,
+  }),
   async mounted() {
     if (this.user?.id === 1) {
       const codeReader = new BrowserQRCodeReader()
@@ -26,6 +34,9 @@ export default {
 
 // you can use the controls to stop() the scan or switchTorch() if available
       const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId, previewElem, (result, error, controls) => {
+        this.result = result
+        this.error = error
+        this.controls = controls
         console.log('result', result)
         console.log('error', error)
         console.log('controls', controls)
