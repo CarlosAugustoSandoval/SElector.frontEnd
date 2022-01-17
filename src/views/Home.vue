@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home 4
+      Home 5
     </div>
     <div>a{{result}}</div>
     <div>b{{error}}</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {BrowserDatamatrixCodeReader} from '@zxing/browser'
+import {BrowserMultiFormatReader} from '@zxing/browser'
 import * as ZXingBrowser from '@zxing/browser'
 
 export default {
@@ -27,7 +27,7 @@ export default {
   }),
   async mounted() {
     if (this.user?.id === 1) {
-      const codeReader = new BrowserDatamatrixCodeReader()
+      const codeReader = new BrowserMultiFormatReader()
       const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
 
 // choose your media device (webcam, frontal camera, back camera, etc.)
