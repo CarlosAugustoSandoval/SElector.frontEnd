@@ -30,7 +30,7 @@ export default {
 // choose your media device (webcam, frontal camera, back camera, etc.)
       console.log('videoInputDevices', videoInputDevices)
       this.videoInputDevices = videoInputDevices
-      const selectedDeviceId = videoInputDevices[1].deviceId;
+      const selectedDeviceId = videoInputDevices[0].deviceId;
 
       console.log(`Started decode from camera with id ${selectedDeviceId}`);
 
