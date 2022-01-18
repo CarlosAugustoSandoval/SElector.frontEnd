@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="page-wrapper">
     <div>
-      Home 1
+      Home 11
     </div>
     <div>b{{error}}</div>
     <div>a{{result}}</div>
@@ -37,7 +37,7 @@ export default {
 
 // you can use the controls to stop() the scan or switchTorch() if available
       const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId, previewElem, (result, error, controls) => {
-        this.result = result
+        if (result) this.result = result
         this.error = error
         this.controls = controls
         console.log('result', result)
