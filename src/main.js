@@ -11,6 +11,7 @@ import './plugins/globalComponents'
 import './plugins/veeValidate'
 import './plugins/axios'
 import './plugins/moment'
+import './plugins/lodash'
 import './plugins/vue-mask'
 
 store.commit('authModule/SET_DEFAULT_AXIOS')

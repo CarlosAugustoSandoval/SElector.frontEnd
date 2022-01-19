@@ -101,3 +101,13 @@ extend('regexPassword', {
   },
   message: "La contraseña debe ser alfanumerica, debe contener mayusculas y minusculas y un caracter especial"
 })
+
+extend('sqlIntegrity', {
+  validate (value) {
+    if ((value !== null) && (typeof value !== 'undefined') && (value !== '')) {
+      const expression = /(DELETE |CREATE |ALTER |DROP |RENAME |TRUNCATE |CALL |IMPORT |INSERT |REPLACE |LOAD |UPDATE |GRANT)/i
+      return !expression.test(value)
+    }
+  },
+  message: 'La consulta no está permitida.'
+})

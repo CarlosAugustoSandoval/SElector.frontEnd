@@ -15,6 +15,7 @@ import ViewTitle from '@/components/globalComponents/ViewTitle'
 import CRows from '@/components/globalComponents/cDataRows/components/CRows'
 import CChip from '@/components/globalComponents/CChip'
 import CDateRange from '@/components/globalComponents/CDateRange'
+import CComboBox from '@/components/globalComponents/CComboBox'
 import OptionsButtons from '@/components/globalComponents/OptionsButtons'
 
 Vue.use({
@@ -34,6 +35,7 @@ Vue.use({
     Vue.component('CRows', CRows)
     Vue.component('CChip', CChip)
     Vue.component('CDateRange', CDateRange)
+    Vue.component('CComboBox', CComboBox)
     Vue.component('OptionsButtons', OptionsButtons)
 
   }

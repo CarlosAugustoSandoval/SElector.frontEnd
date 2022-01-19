@@ -21,9 +21,6 @@
             </v-btn>
           </c-tooltip>
         </template>
-
-
-
         <c-tooltip
             v-if="permissions.create"
             left

@@ -8,6 +8,7 @@ import auth from '@/modules/auth/router'
 import persons from '@/modules/persons/router'
 import users from '@/modules/users/router'
 import roles from '@/modules/roles/router'
+import reports from '@/modules/reports/router'
 import error from '@/modules/error/router'
 
 Vue.use(VueRouter)
@@ -18,6 +19,7 @@ const routes = [
     persons,
     users,
     roles,
+    reports,
     error
 ]
 
