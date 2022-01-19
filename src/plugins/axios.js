@@ -4,8 +4,8 @@ import VueAxios from 'vue-axios'
 import router from '../router'
 import store from '../store'
 
-// axios.defaults.baseURL = `${window.location.protocol}//${window.location.hostname}:8000/api`
-axios.defaults.baseURL = 'https://sucre.selectorplus.com:8000/api'
+axios.defaults.baseURL = `${window.location.protocol}//${window.location.hostname}:8000/api`
+// axios.defaults.baseURL = 'https://sucre.selectorplus.com:8000/api'
 Vue.use(VueAxios, axios)
 
 axios.interceptors.response.use(undefined, error => {

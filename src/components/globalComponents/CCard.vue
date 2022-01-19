@@ -138,7 +138,7 @@ export default {
       default: 'primary darken-3'
     },
     icon: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
     iconColor: {

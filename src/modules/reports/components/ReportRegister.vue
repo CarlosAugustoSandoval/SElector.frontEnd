@@ -14,16 +14,16 @@
         show-close-button
         text-save-button="Guardar"
         header-background="primary"
-        :icon="item.id ? 'mdi-file-edit' : 'mdi-file-plus'"
+        :icon="item && item.id ? 'mdi-file-edit' : 'mdi-file-plus'"
         :loading.sync="loading"
         :title="`${ item && item.id ? `Reporte No. ${item.id}` : `Nuevo Reporte` }`"
-        :subtitle="item.id ? `Registro ID: ${ item.id }` : ''"
+        :subtitle="item && item.id ? `Registro ID: ${ item.id }` : ''"
         @close="close"
         @cancel="close"
         @save="val => save(val)"
         class-container="pt-2"
     >
-      <v-container fluid>
+      <v-container v-if="item">
         <v-row
             justify="center"
             align="center"
@@ -179,6 +179,7 @@ import {codemirror} from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/sql/sql.js'
 import 'codemirror/theme/solarized.css'
+import Report from '../models/Report'
 
 export default {
   name: 'ReportRegister',
@@ -205,33 +206,15 @@ export default {
     loading: false,
     dialog: false,
     item: null,
-    modelReporte: {
-      id: null,
-      descripcion: null,
-      columns: [],
-      query: '',
-      nombre: null,
-      user_id: null,
-      created_at: null,
-      updated_at: null,
-      roles: [],
-      variables: [],
-      items: [
-        {header: 'Seleccionar o Crear un item'}
-      ]
-    },
     roles: []
   }),
   watch: {
     'item.query': {
-      handler() {
-        this.reloadVariables()
+      handler(val) {
+        if (typeof val !== 'undefined') this.reloadVariables()
       },
       immediate: false
     }
-  },
-  created() {
-    this.item = this.clone(this.modelReporte)
   },
   methods: {
     probarSql() {
@@ -313,13 +296,17 @@ export default {
       if (!this.roles?.length) this.getRoles()
       if (idReport) {
         this.getReport(idReport)
+      } else {
+        this.item = Report.create()
       }
       this.dialog = true
     },
     close() {
       this.dialog = false
-      this.loading = false
-      this.item = this.clone(this.modelReporte)
+      setTimeout(() => {
+        this.loading = false
+        this.item = null
+      }, 400)
     },
     getReport(idReport) {
       this.loading = true

@@ -111,3 +111,19 @@ extend('sqlIntegrity', {
   },
   message: 'La consulta no está permitida.'
 })
+
+extend('min', {
+  params: ['min'],
+  validate (value, { min }) {
+    return Number(value) >= min
+  },
+  message: 'El campo {_field_} debe ser mayor o igual a {min}'
+})
+
+extend('max', {
+  params: ['max'],
+  validate (value, { max }) {
+    return Number(value) <= max
+  },
+  message: 'El campo {_field_} debe ser menor o igual a {max}'
+})

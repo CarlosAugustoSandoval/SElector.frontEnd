@@ -373,7 +373,6 @@ export default {
     },
     resultElector (elector) {
       this.identificacionVerificada = 1
-      console.log('electorelector', elector)
       if (elector) {
         this.item = Person.create(elector)
       }
