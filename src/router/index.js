@@ -9,6 +9,7 @@ import persons from '@/modules/persons/router'
 import users from '@/modules/users/router'
 import roles from '@/modules/roles/router'
 import reports from '@/modules/reports/router'
+import charts from '@/modules/charts/router'
 import error from '@/modules/error/router'
 
 Vue.use(VueRouter)
@@ -20,6 +21,7 @@ const routes = [
     users,
     roles,
     reports,
+    charts,
     error
 ]
 

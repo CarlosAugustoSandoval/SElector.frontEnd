@@ -8,7 +8,7 @@
       :nudge-top="20"
       transition="scale-transition"
       offset-y
-      min-width="300px"
+      min-width="280px"
   >
     <template v-slot:activator="{ on }">
       <ValidationProvider
@@ -23,7 +23,7 @@
             :label="label"
             :placeholder="placeholder"
             prepend-inner-icon="mdi-calendar-range"
-            :readonly="readonly"
+            readonly
             :outlined="outlined"
             v-on="on"
             :dense="dense"
@@ -120,10 +120,6 @@ export default {
     },
     model: [],
     periods: [
-      {
-        value: '',
-        text: 'Periodo'
-      },
       {
         value: 'today',
         text: 'Hoy'

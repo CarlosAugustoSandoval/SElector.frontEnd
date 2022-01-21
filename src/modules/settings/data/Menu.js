@@ -49,6 +49,22 @@ const Menu =[
         }
     },
     {
+        name: 'Charts',
+        path: '/indicadores',
+        component: () => import('@/modules/charts/views/Indicadores'),
+        meta: {
+            title: 'Indicadores',
+            subtitle: '',
+            icon: 'mdi-finance',
+            color: 'deep-purple',
+            module: 'Idicadores',
+            group: 'Gestión',
+            requireAuth: true,
+            permission: 'charts.index',
+            visible: true
+        }
+    },
+    {
         name: 'Users',
         path: '/users',
         component: () => import('@/modules/users/views/Users'),
