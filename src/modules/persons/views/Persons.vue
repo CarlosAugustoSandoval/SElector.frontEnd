@@ -189,7 +189,7 @@
                 color="warning"
                 @click="registerIntent(item)"
             >
-              Registrar intención
+              Registrar
             </v-btn>
           </template>
           <template v-slot:item.options="{ item }">
