@@ -7,6 +7,10 @@ export default class Person {
                 identificacion = null,
                 apellido1 = null,
                 apellido2 = null,
+                candidato_camara = null,
+                candidato_camara_id = null,
+                candidato_senado = null,
+                candidato_senado_id = null,
                 nombre1 = null,
                 nombre2 = null,
                 nombre_completo = null,
@@ -44,6 +48,10 @@ export default class Person {
                 identificacion,
                 apellido1,
                 apellido2,
+                candidato_camara,
+                candidato_camara_id,
+                candidato_senado,
+                candidato_senado_id,
                 nombre1,
                 nombre2,
                 nombre_completo,
@@ -103,6 +111,10 @@ export default class Person {
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
+                null,
                 0,
                 null,
                 null,
@@ -122,6 +134,10 @@ export default class Person {
         identificacion,
         apellido1,
         apellido2,
+        candidato_camara,
+        candidato_camara_id,
+        candidato_senado,
+        candidato_senado_id,
         nombre1,
         nombre2,
         nombre_completo,
@@ -158,6 +174,10 @@ export default class Person {
         this.identificacion = identificacion
         this.apellido1 = apellido1
         this.apellido2 = apellido2
+        this.candidato_camara = candidato_camara
+        this.candidato_camara_id = candidato_camara_id
+        this.candidato_senado = candidato_senado
+        this.candidato_senado_id = candidato_senado_id
         this.nombre1 = nombre1
         this.nombre2 = nombre2
         this.nombre_completo = nombre_completo

@@ -110,7 +110,7 @@
           v-bind="{ items: items, headers: rowsHeaders, loading: loading }"
       />
     </div>
-    <template v-if="dataPagination && dataPagination.itemsLength && isOnline">
+    <template v-if="dataPagination && isOnline">
       <div
           v-if="footerPagination"
           class="mt-15"
@@ -123,34 +123,159 @@
               elevation="5"
           >
             <v-container>
-              <v-row align="center" justify="center">
+              <template v-if="dataPagination.lastPage && dataPagination.itemsLength">
+                <v-row align="center" justify="center">
                 <span class="title grey--text text--darken-1 text-center caption mt-1">
                   {{ `Registros del ${dataPagination.from} al ${dataPagination.to} de ${dataPagination.itemsLength}` }}
                 </span>
-              </v-row>
-              <v-row align="center" justify="center">
-                <v-pagination
-                    class="my-1"
-                    v-model="dataPagination.currentPage"
-                    :total-visible="totalVisiblePagination"
-                    :length="dataPagination.lastPage"
-                    @input="reloadPage"
-                />
+                </v-row>
+                <v-row align="center" justify="center">
+                  <v-pagination
+                      class="my-1"
+                      circle
+                      v-model="dataPagination.currentPage"
+                      :total-visible="totalVisiblePagination"
+                      :length="dataPagination.lastPage"
+                      @input="reloadPage"
+                  />
+                </v-row>
+              </template>
+              <v-row
+                  v-else
+                  align="center"
+                  justify="center"
+              >
+                <div
+                    style="display: inline-flex !important;"
+                    class="ma-2"
+                >
+                  <div
+                      class="mr-0 ml-3"
+                      :style="`margin-top: ${!dataPagination.prev ? '5' : '4'}px !important;`"
+                  >
+                    <v-btn
+                        fab
+                        x-small
+                        elevation="2"
+                        :disabled="!dataPagination.prev"
+                        @click="() => {
+                  dataPagination.currentPage = dataPagination.prev
+                  reloadPage()
+                }"
+                    >
+                      <v-icon>mdi-chevron-left</v-icon>
+                    </v-btn>
+                  </div>
+
+                  <div class="mx-2">
+                    <v-progress-circular
+                        v-if="loading"
+                        indeterminate
+                        color="primary"
+                    />
+                    <v-avatar
+                        v-else
+                        size="40"
+                        color="primary"
+                        class="white--text elevation-2"
+                    >
+                      {{dataPagination.currentPage}}
+                    </v-avatar>
+                  </div>
+
+                  <div
+                      class="ml-0 mr-3"
+                      :style="`margin-top: ${!dataPagination.next ? '5' : '4'}px !important;`"
+                  >
+                    <v-btn
+                        fab
+                        x-small
+                        elevation="2"
+                        :disabled="!dataPagination.next"
+                        @click="() => {
+                  dataPagination.currentPage = dataPagination.next
+                  reloadPage()
+                }"
+                    >
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
               </v-row>
             </v-container>
           </v-sheet>
         </div>
       </div>
       <div v-else class="text-center mt-1">
-        <span class="title grey--text text--darken-1 text-center caption pa-1">
+        <template v-if="dataPagination.lastPage && dataPagination.itemsLength">
+          <span class="title grey--text text--darken-1 text-center caption pa-1">
           {{ `Registros del ${dataPagination.from} al ${dataPagination.to} de ${dataPagination.itemsLength}` }}
         </span>
-        <v-pagination
-            v-model="dataPagination.currentPage"
-            :total-visible="totalVisiblePagination"
-            :length="dataPagination.lastPage"
-            @input="reloadPage"
-        />
+          <v-pagination
+              circle
+              v-model="dataPagination.currentPage"
+              :total-visible="totalVisiblePagination"
+              :length="dataPagination.lastPage"
+              @input="reloadPage"
+          />
+        </template>
+        <div
+            v-else
+            style="display: inline-flex !important;"
+            class="ma-2"
+        >
+          <div
+              class="mr-0 ml-3"
+              :style="`margin-top: ${!dataPagination.prev ? '5' : '4'}px !important;`"
+          >
+            <v-btn
+                fab
+                x-small
+                elevation="2"
+                :disabled="!dataPagination.prev"
+                @click="() => {
+                  dataPagination.currentPage = dataPagination.prev
+                  reloadPage()
+                }"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+          </div>
+
+          <div class="mx-2">
+            <v-progress-circular
+                v-if="loading"
+                indeterminate
+                color="primary"
+            />
+            <v-avatar
+                v-else
+                size="40"
+                color="primary"
+                class="white--text elevation-2"
+            >
+              {{dataPagination.currentPage}}
+            </v-avatar>
+          </div>
+
+          <div
+              class="ml-0 mr-3"
+              :style="`margin-top: ${!dataPagination.next ? '5' : '4'}px !important;`"
+          >
+            <v-btn
+                fab
+                x-small
+                elevation="2"
+                :disabled="!dataPagination.next"
+                @click="() => {
+                  dataPagination.currentPage = dataPagination.next
+                  reloadPage()
+                }"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </div>
+        </div>
       </div>
     </template>
   </div>
@@ -382,6 +507,8 @@ export default {
               this.dataPagination.lastPage = data.last_page
               this.dataPagination.from = data.from
               this.dataPagination.to = data.to
+              this.dataPagination.next = data.total ? data.next_page_url : data.next_page_url ? this.dataPagination.currentPage + 1 : null
+              this.dataPagination.prev = data.total ? data.prev_page_url : data.prev_page_url ? this.dataPagination.currentPage - 1 : null
               this.items = Object.freeze(data.data)
               this.filtersTags = this?.$slots?.filters && this.$slots.filters[0] && this.$slots.filters[0].componentInstance?.$data?.model || {}
             }

@@ -140,7 +140,7 @@
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   {{
-                    [item.municipio ? item.municipio.nombre : null, item.departamento ? item.departamento.nombre : null].filter(x => x).join(', ')
+                    [item.municipio, item.departamento].filter(x => x).join(', ')
                   }}
                 </v-list-item-subtitle>
               </v-list-item-content>
@@ -163,11 +163,34 @@
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   {{
-                    [item.municipio_votacion ? item.municipio_votacion.nombre : null, item.departamento_votacion ? item.departamento_votacion.nombre : null].filter(x => x).join(', ')
+                    [item.municipio_votacion, item.departamento_votacion].filter(x => x).join(', ')
                   }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+          </template>
+          <template v-slot:item.intention="{ item }">
+            <v-list-item
+                v-if="item.candidato_camara || item.candidato_senado"
+                class="pa-0"
+            >
+              <v-list-item-content class="py-1">
+                <v-list-item-subtitle v-if="item.candidato_senado">
+                  Senado: {{ item.candidato_senado }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle v-if="item.candidato_camara">
+                  Cámara: {{ item.candidato_camara }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-btn
+                v-else
+                small
+                color="warning"
+                @click="registerIntent(item)"
+            >
+              Registrar intención
+            </v-btn>
           </template>
           <template v-slot:item.options="{ item }">
             <options-buttons
@@ -198,6 +221,10 @@
         </v-data-table>
       </template>
     </c-rows>
+    <intention-register
+        ref='intentionRegister'
+        @saved="rowsReload"
+    />
     <person-register
         ref='itemRegister'
         @saved="rowsReload"
@@ -226,10 +253,12 @@ import PersonRegister from '../components/PersonRegister'
 import PersonsFilters from '../components/PersonsFilters'
 import PersonsFiltersTags from '../components/PersonsFiltersTags'
 import store from '@/store'
+import IntentionRegister from '@/modules/forms/intention/components/IntentionRegister'
 
 export default {
   name: 'Persons',
   components: {
+    IntentionRegister,
     PersonRegister,
     PersonsFilters,
     PersonsFiltersTags
@@ -256,6 +285,11 @@ export default {
         value: 'residence',
       },
       {
+        text: 'Intención de voto',
+        sortable: false,
+        value: 'intention',
+      },
+      {
         text: 'Votación',
         sortable: false,
         value: 'vote',
@@ -275,9 +309,15 @@ export default {
     }
   },
   mounted() {
-    if (this.isOnline) this.getUnsyncPersons()
+    if (this.isOnline) {
+      this.getUnsyncPersons()
+      this.getCandidates()
+    }
   },
   methods: {
+    registerIntent(item) {
+      this.$refs.intentionRegister.open(item)
+    },
     deleteItem(item) {
       this.itemSelected = item
       this.showConfirmDelete = true
@@ -308,6 +348,9 @@ export default {
             this.rowsReload()
             this.loading = false
           })
+    },
+    getCandidates() {
+      store.dispatch('dedicatesModule/getCandidates')
     },
     rowsReload() {
       store.commit('SET_RELOAD_ROWS', 'rowsPersons')

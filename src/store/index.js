@@ -6,8 +6,11 @@ import authModule from '@/modules/auth/store'
 import settingsModule from '@/modules/settings/store'
 import personsModule from '@/modules/persons/store'
 import firebaseModule from '@/modules/firebase/store'
+import intentionModule from '@/modules/forms/intention/store'
 import snackbar from '@/components/snackbar/store'
 import loading from '@/components/globalComponents/loading/store'
+
+import dedicatesModule from '@/data/store/dedicates'
 
 import dataRowsModule from '@/components/globalComponents/cDataRows/store'
 
@@ -22,7 +25,9 @@ export default new Vuex.Store({
     snackbar,
     loading,
     dataRowsModule,
-    firebaseModule
+    firebaseModule,
+    intentionModule,
+    dedicatesModule
   },
   plugins: [persist.plugin]
 })
