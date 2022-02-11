@@ -311,7 +311,9 @@ export default {
   mounted() {
     if (this.isOnline) {
       this.getUnsyncPersons()
-      this.getCandidates()
+      setTimeout(() => {
+        this.getCandidates()
+      }, 500)
     }
   },
   methods: {
