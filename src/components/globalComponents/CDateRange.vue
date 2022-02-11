@@ -173,7 +173,8 @@ export default {
     value: {
       handler(val, prev) {
         if ((typeof prev === 'undefined' || prev === null) && (!val || (val && val.length === 0))) {
-          this.selectedPeriod = this.periods.find(period => period.value === this.periodOrigin) || this.periods[0]
+          // this.selectedPeriod = this.periods.find(period => period.value === this.periodOrigin) || this.periods[0]
+          this.selectedPeriod = this.periods.find(period => period.value === this.periodOrigin) || []
           this.model = this.makeDatePeriod()
         } else {
           this.model = ((typeof val !== 'undefined' && val !== null) ? val : [])
