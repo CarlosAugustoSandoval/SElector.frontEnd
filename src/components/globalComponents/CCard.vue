@@ -229,6 +229,7 @@ export default {
       if (validate) {
         if (this.showLoading) this.$emit('update:loading', true)
         this.$emit('save', true)
+        if (this.formValidation) this.$refs.formValidCard.reset()
       } else {
         this.$emit('save', false)
       }

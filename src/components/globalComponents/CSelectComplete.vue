@@ -28,6 +28,15 @@
         :persistent-hint="persistentHint"
         :hint="hint"
     >
+        <template
+            v-if="$scopedSlots && $scopedSlots.item"
+            v-slot:item="{ item }"
+        >
+          <slot
+              name="item"
+              v-bind="{ item: item }"
+          />
+        </template>
     </v-select>
     <v-autocomplete
         v-else
@@ -52,6 +61,16 @@
         :persistent-hint="persistentHint"
         :hint="hint"
     >
+      <template
+          v-if="$scopedSlots && $scopedSlots.item"
+          v-slot:item="{ on, item }"
+      >
+        <slot
+            name="item"
+            v-on="on"
+            v-bind="{ item: item }"
+        />
+      </template>
     </v-autocomplete>
   </ValidationProvider>
 </template>
@@ -91,6 +110,11 @@ export default {
   data: () => ({
     model: null
   }),
+  mounted() {
+    setTimeout(() => {
+      console.log('this', this.$scopedSlots)
+    }, 1000)
+  },
   watch: {
     model: {
       handler(val) {

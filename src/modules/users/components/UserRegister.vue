@@ -48,6 +48,53 @@
                 name="Correo Electrónico"
             />
           </v-col>
+          <v-col
+              cols="12"
+          >
+            <v-switch
+                inset
+                :hide-details="!item.es_lider"
+                v-model="item.es_lider"
+                label="Es Lider"
+                :true-value="1"
+                :false-value="0"
+            />
+          </v-col>
+          <v-col
+              v-if="item.es_lider"
+              cols="12"
+          >
+            <c-select-complete
+                v-model="item.coordinador_id"
+                label="Coordinador"
+                name="Coordinador"
+                :items="coordinators"
+                item-text="name"
+                item-value="id"
+                rules="required"
+                :hint="hintCoordinator"
+            >
+              <template v-slot:item="{ item }">
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                  <v-list-item-subtitle v-text="item.email"></v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </c-select-complete>
+          </v-col>
+          <v-col
+              v-if="item.es_lider === 0"
+              cols="12"
+          >
+            <v-switch
+                inset
+                hide-details
+                v-model="item.es_coordinador"
+                label="Es Coordinador"
+                :true-value="1"
+                :false-value="0"
+            />
+          </v-col>
         </v-row>
       </v-container>
     </c-card>
@@ -62,8 +109,29 @@ export default {
   data: () => ({
     loading: false,
     dialog: false,
+    coordinators: [],
     item: User.create()
   }),
+  watch: {
+    'item.es_lider': {
+      handler (val) {
+        if (val) {
+          this.item.es_coordinador = 0
+        } else {
+          this.item.coordinador_id = null
+        }
+      },
+      immediate: false
+    }
+  },
+  computed: {
+    hintCoordinator () {
+      return this.coordinators?.find(x => x.id === this.item?.coordinador_id)?.email || ''
+    }
+  },
+  created() {
+    this.getCoordinators()
+  },
   methods: {
     save (confirm) {
       if (confirm) {
@@ -81,6 +149,16 @@ export default {
               this.loading = false
             })
       }
+    },
+    getCoordinators () {
+      this.axios.get('users?filter[es_coordinador]=1')
+      // this.axios.get('users')
+          .then(({data}) => {
+            this.coordinators = data || []
+          })
+          .catch(e => {
+            store.commit('SET_SNACKBAR', {color: 'error', message: 'Error al recuperar los registros de coordinadores.', error: e})
+          })
     },
     getItem (item) {
       this.axios.get(`users/${item.id}`)
