@@ -83,7 +83,7 @@
             </c-select-complete>
           </v-col>
           <v-col
-              v-if="item.es_lider === 0"
+              v-if="!item.es_lider"
               cols="12"
           >
             <v-switch
