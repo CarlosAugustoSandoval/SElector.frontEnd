@@ -42,21 +42,32 @@
               </thead>
               <tbody>
               <tr
-                  v-for="(intention, intentionIndex) in item.itenciones"
+                  v-for="(intention, intentionIndex) in item.intenciones_voto"
                   :key="intentionIndex"
               >
-                <td></td>
                 <td>
-                  <v-list-item-content>
-                    <v-list-item-subtitle>
-                      Creación: {{intention.created_at || ''}}
+                  {{intention.created_at ? moment(intention.created_at).format('DD/MM/YYYY HH:mm') : ''}}
+                </td>
+                <td>
+                  <v-list-item-content v-if="intention.candidato_senado">
+                    <v-list-item-subtitle class="font-weight-black">
+                      {{ intention.candidato_senado.nombre_completo }}
                     </v-list-item-subtitle>
-                    <v-list-item-subtitle>
-                      Actualización: {{intention.updated_at || ''}}
+                    <v-list-item-subtitle class="caption">
+                      {{ intention.candidato_senado.partido }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </td>
-                <td></td>
+                <td>
+                  <v-list-item-content v-if="intention.candidato_camara">
+                    <v-list-item-subtitle class="font-weight-black">
+                      {{ intention.candidato_camara.nombre_completo }}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="caption">
+                      {{ intention.candidato_camara.partido }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </td>
               </tr>
               </tbody>
             </template>
