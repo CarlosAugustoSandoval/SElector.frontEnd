@@ -194,6 +194,8 @@
           </template>
           <template v-slot:item.options="{ item }">
             <options-buttons
+                detail-button
+                @detail="viewItem(item)"
                 :edit-button="permissions.edit"
                 @edit="editItem(item)"
                 :delete-button="permissions.delete"
@@ -229,6 +231,10 @@
         ref='itemRegister'
         @saved="rowsReload"
     />
+    <person-detail
+        ref='itemDetail'
+        @saved="rowsReload"
+    />
     <c-confirm
         v-if="itemSelected"
         title="Eliminar registro de elector"
@@ -254,10 +260,12 @@ import PersonsFilters from '../components/PersonsFilters'
 import PersonsFiltersTags from '../components/PersonsFiltersTags'
 import store from '@/store'
 import IntentionRegister from '@/modules/forms/intention/components/IntentionRegister'
+import PersonDetail from '../components/detail/PersonDetail'
 
 export default {
   name: 'Persons',
   components: {
+    PersonDetail,
     IntentionRegister,
     PersonRegister,
     PersonsFilters,
@@ -336,6 +344,9 @@ export default {
     },
     editItem(item) {
       this.$refs.itemRegister.open(item)
+    },
+    viewItem(item) {
+      this.$refs.itemDetail.open(item)
     },
     getUnsyncPersons() {
       store.dispatch('personsModule/getUnsyncPersons')
