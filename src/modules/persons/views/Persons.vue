@@ -171,7 +171,7 @@
           </template>
           <template v-slot:item.intention="{ item }">
             <v-list-item
-                v-if="item.candidato_camara || item.candidato_senado"
+                v-if="(item.candidato_camara || item.candidato_senado) && permissionsIntention.view"
                 class="pa-0"
             >
               <v-list-item-content class="py-1">
@@ -183,14 +183,16 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-            <v-btn
-                v-else
-                small
-                color="warning"
-                @click="registerIntent(item)"
-            >
-              Registrar
-            </v-btn>
+            <template v-else>
+              <v-btn
+                  v-if="permissionsIntention.create"
+                  small
+                  color="warning"
+                  @click="registerIntent(item)"
+              >
+                Registrar
+              </v-btn>
+            </template>
           </template>
           <template v-slot:item.options="{ item }">
             <options-buttons
@@ -314,6 +316,9 @@ export default {
   computed: {
     permissions () {
       return store.getters['authModule/permissionsByModule']('electores')
+    },
+    permissionsIntention () {
+      return store.getters['authModule/permissionsByModule']('intencionVoto')
     }
   },
   mounted() {

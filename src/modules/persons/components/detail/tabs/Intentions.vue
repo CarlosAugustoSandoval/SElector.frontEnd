@@ -9,7 +9,7 @@
     >
       <v-toolbar-title>Intenciones de voto</v-toolbar-title>
       <v-spacer></v-spacer>
-      <template v-if="permisos.edit">
+      <template v-if="permissionsIntention.create">
         <c-tooltip
             left
             tooltip="Registrar Intención"
@@ -31,7 +31,9 @@
     <v-container fluid>
       <v-row dense>
         <v-col cols="12">
-          <v-simple-table v-if="item">
+          <v-simple-table
+              v-if="item && permissionsIntention.view"
+          >
             <template v-slot:default>
               <thead>
               <tr>
@@ -114,6 +116,9 @@ export default {
   computed: {
     permisos () {
       return store.getters['authModule/permissionsByModule']('electores')
+    },
+    permissionsIntention () {
+      return store.getters['authModule/permissionsByModule']('intencionVoto')
     }
   },
   methods: {

@@ -37,7 +37,10 @@
           <v-col cols="12">
             <personal-information :item="person"/>
           </v-col>
-          <v-col cols="12">
+          <v-col
+              cols="12"
+              v-if="permissionsIntention.view || permissionsIntention.create"
+          >
             <v-card tile>
               <v-tabs
                   v-model="tab"
@@ -84,6 +87,7 @@
 <script>
 import PersonalInformation from './PersonalInformation'
 import Intentions from './tabs/Intentions'
+import store from '@/store'
 export default {
   name: 'PersonDetail',
   components: {
@@ -107,6 +111,9 @@ export default {
                   : this.tab === 'tab-4'
                       ? 'indigo'
                       : 'purple'
+    },
+    permissionsIntention () {
+      return store.getters['authModule/permissionsByModule']('intencionVoto')
     }
   },
   methods: {
